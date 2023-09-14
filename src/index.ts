@@ -1,9 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import { createServer } from "http";
-import connectDB from "./repository/connection/index.ts";
+import connectDB from "./connection/index.ts";
 import cors from "cors";
-import pageRouter from "./controller/page/index.ts";
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -17,7 +16,6 @@ app.use(cors());
 app.use(morgan("dev"));
 console.log(__dirname)
 app.use(express.static(__dirname + '/public'));
-app.use("/", pageRouter)
 connectDB();
 const server = createServer(app);
 
