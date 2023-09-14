@@ -3,22 +3,26 @@ import morgan from "morgan";
 import { createServer } from "http";
 import connectDB from "./connection/index.ts";
 import cors from "cors";
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-const hostname = "localhost";
-const port = 5000;
-
+const hostname = "https://drawdemy.onrender.com";
+// const hostname = "localhost"
 app.use(cors());
 
 app.use(morgan("dev"));
-console.log(__dirname)
-app.use(express.static(__dirname + '/public'));
-connectDB();
+console.log(__dirname);
+app.use(express.static(__dirname + "/public"));
+app.use("/", (req, res, next) => {
+  res.statusCode = 200;
+  res.set("Content-Type", "text/html")
+  res.end("hello");
+});
+// connectDB();
 const server = createServer(app);
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(hostname, () => {
+  console.log(`Server running at http://${hostname}`);
 });
