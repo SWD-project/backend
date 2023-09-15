@@ -8,7 +8,6 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-const hostname = "https://drawdemy.onrender.com";
 // const hostname = "localhost"
 app.use(cors());
 
@@ -21,6 +20,6 @@ res.end("heelo")
 //connectDB();
 const server = createServer(app);
 
-server.listen(hostname, () => {
-  console.log(`Server running at http://${hostname}`);
+server.listen(3000, () => {
+  console.log(`Server running`);
 });
