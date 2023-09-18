@@ -16,9 +16,10 @@ console.log(__dirname);
 app.use(express.static(__dirname + "/public"));
 
 app.use("/", (req, res) => {
-  res.end("heelo");
+  res.end("hello");
 });
 connectDB();
+
 const server = createServer(app);
 
 server.listen(3000, () => {
