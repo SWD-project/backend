@@ -12,12 +12,13 @@ const app = express();
 app.use(cors());
 
 app.use(morgan("dev"));
-console.log(__dirname)
-app.use(express.static(__dirname + '/public'));
-app.use("/", (req,res)=> {
-res.end("heelo")
-})
-//connectDB();
+console.log(__dirname);
+app.use(express.static(__dirname + "/public"));
+
+app.use("/", (req, res) => {
+  res.end("heelo");
+});
+connectDB();
 const server = createServer(app);
 
 server.listen(3000, () => {

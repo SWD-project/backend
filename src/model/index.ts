@@ -4,10 +4,10 @@ export interface ResponseBody<T> {
   data: T[];
 }
 
-export const errorResponse = (error: any) => {
+export const errorResponse = (message: any) => {
   const response: ResponseBody<string> = {
     data: [],
-    message: error.message,
+    message: message,
     status: "error",
   };
   return response
