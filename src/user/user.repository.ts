@@ -1,4 +1,4 @@
-import { UserModel } from "./user.entity";
+import { UserModel } from "./user.entity.ts";
 
 export class UserRepository {
   public getUser = (id?: string) => {
