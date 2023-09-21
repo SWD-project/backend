@@ -5,6 +5,7 @@ import connectDB from "./util/connection/index.ts";
 import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import UserRouter from "./user/user.controller.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.static(__dirname + "/public"));
 app.use("/", (req, res) => {
   res.end("hello");
 });
+app.use("/user", UserRouter);
 connectDB();
 
 const server = createServer(app);
