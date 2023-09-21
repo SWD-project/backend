@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import { Router } from "express";
-import { ResponseBody, errorResponse } from "../model";
-import { User } from "../model/user";
 import { UserService } from "./user.service";
 import { UserRepository } from "./user.repository";
+import { ResponseBody, errorResponse } from "../util/model";
+import { User } from "../util/model/user";
 
 const UserRouter = Router();
 UserRouter.use(bodyParser.json());
@@ -17,7 +17,7 @@ UserRouter.use((req, res, next) => {
 }).get("/", (req, res, next) => {
   try {
     const response: ResponseBody<User> = {
-      data: userService.getUser(),
+      data: [],
       message: "Get success",
       status: "success",
     };

@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import { createServer } from "http";
-import connectDB from "./connection/index.ts";
+import connectDB from "./util/connection/index.ts";
 import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
