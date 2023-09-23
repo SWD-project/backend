@@ -19,6 +19,7 @@ app.use(express.static(__dirname + "/public"));
 app.use("/", (req, res) => {
   res.end("hello");
 });
+
 app.use("/user", UserRouter);
 connectDB();
 
