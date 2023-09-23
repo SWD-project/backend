@@ -1,9 +1,8 @@
 import bodyParser from "body-parser";
 import { Router } from "express";
-import { UserService } from "./user.service";
-import { UserRepository } from "./user.repository";
-import { ResponseBody, errorResponse } from "../util/model";
-import { User } from "../util/model/user";
+import { UserService } from "./user.service.ts";
+import { ResponseBody, errorResponse } from "../model/index.ts";
+import { User } from "../model/user/index.ts";
 
 const UserRouter = Router();
 UserRouter.use(bodyParser.json());
@@ -14,15 +13,20 @@ UserRouter.use((req, res, next) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
   next();
-}).get("/", (req, res, next) => {
+}).get("/:id", async (req, res, next) => {
   try {
+    const id = req.params.id;
+    const listUser = await userService.getUserById(id);
     const response: ResponseBody<User> = {
-      data: [],
+      data: listUser,
       message: "Get success",
       status: "success",
     };
+    res.send(response).end();
   } catch (error: any) {
     res.statusCode = 400;
     res.send(errorResponse(error.message)).end();
   }
 });
+
+export default UserRouter;
