@@ -28,6 +28,7 @@ const UserSchema = new Schema({
     },
     uuid: {
         type: String,
+        unique: true,
         require: true
     },
 

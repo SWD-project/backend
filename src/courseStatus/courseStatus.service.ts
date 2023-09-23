@@ -1,4 +1,4 @@
-import { CourseStatus } from "../model/courseStatus";
+import { CourseStatus } from "../util/model/courseStatus";
 import { CourseStatusRepository } from "./courseStatus.repository";
 
 export class CourseStatusService {

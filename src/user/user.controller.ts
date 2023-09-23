@@ -1,9 +1,10 @@
 import bodyParser from "body-parser";
-import { Router } from "express";
+import { Request, Router } from "express";
 import { UserService } from "./user.service.ts";
-import { ResponseBody, errorResponse } from "../model/index.ts";
-import { User } from "../model/user/index.ts";
-import passport from "passport";
+import { ResponseBody, errorResponse } from "../util/model/index.ts";
+import { User } from "../util/model/user/index.ts";
+import { getAuthorization } from "../util/get-authorization.ts";
+import { UpdateUserRequest, UpdateUserResponse } from "../util/model/user/update-user.ts";
 
 const UserRouter = Router();
 UserRouter.use(bodyParser.json());
@@ -14,20 +15,53 @@ UserRouter.use((req, res, next) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
   next();
-}).get("/:id", async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const listUser = await userService.getUserById(id);
-    const response: ResponseBody<User> = {
-      data: listUser,
-      message: "Get success",
-      status: "success",
-    };
-    res.send(response).end();
-  } catch (error: any) {
-    res.statusCode = 400;
-    res.send(errorResponse(error.message)).end();
-  }
-});
+})
+  .post("/get-user-by-uuid", async (req, res, next) => {
+    try {
+      const uuid = getAuthorization(req);
+      const listUser = await userService.getUserByUuid(uuid);
+      const response: ResponseBody<User> = {
+        data: listUser,
+        message: "Get success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+  .post("/get-user-by-id/:id", async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const listUser = await userService.getUserById(id);
+      const response: ResponseBody<User> = {
+        data: listUser,
+        message: "Get success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/", async (req, res, next) => {
+    try {
+      const uuid = getAuthorization(req);
+      const updateUser: UpdateUserRequest = req.body;
+      const count = await userService.updateUserByUuid(uuid, updateUser);
+      const response: ResponseBody<UpdateUserResponse> = {
+        data: [],
+        message: count ? "Delete success" : "Update success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  });
 
 export default UserRouter;
