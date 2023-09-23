@@ -3,6 +3,7 @@ import { Router } from "express";
 import { UserService } from "./user.service.ts";
 import { ResponseBody, errorResponse } from "../model/index.ts";
 import { User } from "../model/user/index.ts";
+import passport from "passport";
 
 const UserRouter = Router();
 UserRouter.use(bodyParser.json());
