@@ -1,4 +1,5 @@
-import { User } from "../model/user";
+import { User } from "../util/model/user/index.ts";
+import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserRepository } from "./user.repository.ts";
 
 export class UserService {
@@ -8,28 +9,33 @@ export class UserService {
     this.userRepository = new UserRepository();
   }
 
-  async getUserById(id: string) {
+  public async getUserByUuid(uuid: string) {
+    const user = (await this.userRepository.getUserByUuid(
+      uuid
+    )) as unknown as User;
+    if (user === null) return [];
+    return [user];
+  }
+
+  public async getUserById(id: string) {
     const user = (await this.userRepository.getUser(id)) as unknown as User;
     if (user === null) return [];
     return [user];
   }
 
-  async updateUserById(id: string, updatedData: any) {
+  public async updateUserByUuid(uuid: string, updateUser: UpdateUserRequest) {
     try {
-      const updatedUser = (await this.userRepository.updateUser(
-        id,
-        updatedData
-      )) as unknown as User;
-      if (updatedUser == null) {
-        return [];
-      }
-      return [updatedUser];
+      const count = await this.userRepository.updateUserByUuid(
+        uuid,
+        updateUser
+      );
+      return count;
     } catch (error: any) {
       throw new Error("Lỗi khi cập nhật người dùng: " + error.message);
     }
   }
 
-  async deleteUserById(id: string) {
+  public async deleteUserById(id: string) {
     try {
       const deletedUser = await this.userRepository.deleteUser(id);
       if (!deletedUser) {

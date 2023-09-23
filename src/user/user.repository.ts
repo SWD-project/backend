@@ -1,3 +1,4 @@
+import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserModel } from "./user.entity.ts";
 
 export class UserRepository {
@@ -8,12 +9,32 @@ export class UserRepository {
       return UserModel.find();
     }
   };
+
+  public getUserByUuid = async (uuid: string) => {
+    try {
+      return UserModel.find({ uuid });
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   public updateUser = async (id: string, updatedData: any) => {
     try {
       const updatedUser = await UserModel.findByIdAndUpdate(id, updatedData, {
         new: true,
       });
       return updatedUser;
+    } catch (error: any) {
+      throw new Error(
+        "Lỗi khi cập nhật thông tin người dùng: " + error.message
+      );
+    }
+  };
+
+  public updateUserByUuid = async (uuid: string, updatedData: UpdateUserRequest) => {
+    try {
+      const updatedUser = await UserModel.updateOne({ uuid }, {$set: updatedData});
+      return updatedUser.modifiedCount;
     } catch (error: any) {
       throw new Error(
         "Lỗi khi cập nhật thông tin người dùng: " + error.message

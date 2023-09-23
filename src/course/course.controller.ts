@@ -1,8 +1,8 @@
 import bodyParser from "body-parser";
 import { Router } from "express";
 import { CourseService } from "./course.service";
-import { ResponseBody, errorResponse } from "../model";
-import { Course } from "../model/course";
+import { ResponseBody, errorResponse } from "../util/model";
+import { Course } from "../util/model/course";
 
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());

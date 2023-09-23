@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import { Router } from "express";
 
-import { ResponseBody, errorResponse } from "../model";
 import { CategoryService } from "./category.service";
-import { Category } from "../model/category";
+import { ResponseBody, errorResponse } from "../util/model";
+import { Category } from "../util/model/category";
 
 const CategoryRounter = Router();
 CategoryRounter.use(bodyParser.json());
