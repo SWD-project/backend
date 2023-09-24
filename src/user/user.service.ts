@@ -1,3 +1,4 @@
+import { CreateUser } from "../util/model/user/create-user.ts";
 import { User } from "../util/model/user/index.ts";
 import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserRepository } from "./user.repository.ts";
@@ -7,6 +8,17 @@ export class UserService {
 
   constructor() {
     this.userRepository = new UserRepository();
+  }
+
+  public async createNewUser(createUserN: CreateUser) {
+    try {
+      const createdUser = (await this.userRepository.createUser(
+        createUserN
+      )) as unknown as User;
+      return createdUser;
+    } catch (error: any) {
+      throw new Error("Lỗi khi tạo người dùng: " + error.message);
+    }
   }
 
   public async getUserByUuid(uuid: string) {
