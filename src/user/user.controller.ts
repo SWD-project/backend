@@ -50,7 +50,7 @@ UserRouter.use((req, res, next) => {
     }
   })
 
-  .post("/", async (req, res, next) => {
+  .post("/update-user", async (req, res, next) => {
     try {
       const uuid = getAuthorization(req);
       const updateUser: UpdateUserRequest = req.body;

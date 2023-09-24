@@ -1,5 +1,5 @@
+import { Course } from "../util/model/course";
 import { CourseRepository } from "./course.repository";
-import { Course } from "../model/course";
 export class CourseService {
   private courseRepository: CourseRepository;
   constructor() {

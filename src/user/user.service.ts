@@ -1,4 +1,4 @@
-import { CreateUser } from "../util/model/user/create-user.ts";
+import { CreateUserRequest } from "../util/model/user/create-user.ts";
 import { User } from "../util/model/user/index.ts";
 import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserRepository } from "./user.repository.ts";
@@ -10,7 +10,7 @@ export class UserService {
     this.userRepository = new UserRepository();
   }
 
-  public async createNewUser(createUserN: CreateUser) {
+  public async createNewUser(createUserN: CreateUserRequest) {
     try {
       const createdUser = (await this.userRepository.createUser(
         createUserN

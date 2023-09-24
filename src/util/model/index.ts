@@ -5,7 +5,7 @@ export interface ResponseBody<T> {
 }
 
 export const errorResponse = (message: any) => {
-  const response: ResponseBody<string> = {
+  const response: ResponseBody<any> = {
     data: [],
     message: message,
     status: "error",

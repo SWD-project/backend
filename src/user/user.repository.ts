@@ -1,19 +1,19 @@
-import { CreateUser } from "../util/model/user/create-user.ts";
+import { CreateUserRequest } from "../util/model/user/create-user.ts";
 import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserModel } from "./user.entity.ts";
 
 export class UserRepository {
-  public getUser = (id?: string) => {
+  public getUser = async (id?: string) => {
     if (id) {
-      return UserModel.findById(id);
+      return await UserModel.findById(id);
     } else {
-      return UserModel.find();
+      return await UserModel.find();
     }
   };
 
   public getUserByUuid = async (uuid: string) => {
     try {
-      return UserModel.find({ uuid });
+      return await UserModel.findOne({ uuid });
     } catch (error: any) {
       console.log(error.message);
     }
@@ -32,12 +32,21 @@ export class UserRepository {
     }
   };
 
-  public createUser = async (userData: CreateUser) => {
+  public createUser = async (userData: CreateUserRequest) => {
     try {
-      const newUser = new UserModel(userData);
-      const createdUser = await newUser.save();
+      const createdUser = await UserModel.create({
+        birthDate: userData.birthDate,
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        roleId: 0,
+        phoneNumber: userData.phoneNumber,
+        uuid: userData.uuid
+      });
+      console.log(createdUser);
       return createdUser;
     } catch (error: any) {
+      console.log(error);
       throw new Error("Lỗi khi tạo thông tin người dùng: " + error.message);
     }
   };
