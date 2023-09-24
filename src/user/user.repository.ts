@@ -1,3 +1,4 @@
+import { CreateUser } from "../util/model/user/create-user.ts";
 import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserModel } from "./user.entity.ts";
 
@@ -31,9 +32,25 @@ export class UserRepository {
     }
   };
 
-  public updateUserByUuid = async (uuid: string, updatedData: UpdateUserRequest) => {
+  public createUser = async (userData: CreateUser) => {
     try {
-      const updatedUser = await UserModel.updateOne({ uuid }, {$set: updatedData});
+      const newUser = new UserModel(userData);
+      const createdUser = await newUser.save();
+      return createdUser;
+    } catch (error: any) {
+      throw new Error("Lỗi khi tạo thông tin người dùng: " + error.message);
+    }
+  };
+
+  public updateUserByUuid = async (
+    uuid: string,
+    updatedData: UpdateUserRequest
+  ) => {
+    try {
+      const updatedUser = await UserModel.updateOne(
+        { uuid },
+        { $set: updatedData }
+      );
       return updatedUser.modifiedCount;
     } catch (error: any) {
       throw new Error(
@@ -42,10 +59,8 @@ export class UserRepository {
     }
   };
 
-  // Xóa người dùng theo ID
   public deleteUser = async (id: string) => {
     try {
-      // Tìm và xóa người dùng dựa trên ID
       const deletedUser = await UserModel.findByIdAndRemove(id);
       return deletedUser;
     } catch (error: any) {

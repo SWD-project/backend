@@ -4,7 +4,10 @@ import { UserService } from "./user.service.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { User } from "../util/model/user/index.ts";
 import { getAuthorization } from "../util/get-authorization.ts";
-import { UpdateUserRequest, UpdateUserResponse } from "../util/model/user/update-user.ts";
+import {
+  UpdateUserRequest,
+  UpdateUserResponse,
+} from "../util/model/user/update-user.ts";
 
 const UserRouter = Router();
 UserRouter.use(bodyParser.json());
@@ -61,6 +64,26 @@ UserRouter.use((req, res, next) => {
     } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/create-user", async (req, res, next) => {
+    try {
+      const createUserRequest = req.body;
+      const createdUser = await userService.createNewUser(createUserRequest);
+
+      if (createdUser) {
+        const response: ResponseBody<User> = {
+          data: [createdUser],
+          message: "Create user success",
+          status: "success",
+        };
+        res.status(201).json(response);
+      } else {
+        res.status(400).json(errorResponse("Không thể tạo người dùng."));
+      }
+    } catch (error: any) {
+      res.status(400).json(errorResponse(error.message));
     }
   });
 
