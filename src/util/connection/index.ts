@@ -2,7 +2,7 @@ import { connect } from "mongoose";
 
 const connectDB = async () => {
   try {
-    await connect("mongodb://atlas-sql-6507bb265506401a84ab069e-jmazi.a.query.mongodb.net/myVirtualDatabase?ssl=true&authSource=admin");
+    await connect("mongodb+srv://kiet:7cGve6RyNYhycCIx@cluster0.zltx294.mongodb.net/sdn");
     console.log("Đã kết nối tới MongoDB");
   } catch (error) {
     console.error("Lỗi kết nối tới MongoDB:", error);
@@ -11,3 +11,4 @@ const connectDB = async () => {
 
 export default connectDB;
 
+ 
