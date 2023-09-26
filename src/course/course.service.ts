@@ -1,5 +1,7 @@
+import { Course } from "../util/model/course";
+import { CreateCourse } from "../util/model/course/create-course";
 import { CourseRepository } from "./course.repository";
-import { Course } from "../model/course";
+
 export class CourseService {
   private courseRepository: CourseRepository;
   constructor() {
@@ -17,5 +19,14 @@ export class CourseService {
       (await this.courseRepository.getCourse()) as unknown as Course;
     if (course == null) return [];
     return [course];
+  }
+  async createNewCourse(courseData: CreateCourse) {
+    try {
+      const createdCourse =
+        await this.courseRepository.createCourse(courseData);
+      return [createdCourse];
+    } catch (error: any) {
+      throw new Error("Lỗi khi tạo khóa học mới: " + error.message);
+    }
   }
 }
