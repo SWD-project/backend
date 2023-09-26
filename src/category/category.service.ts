@@ -1,4 +1,4 @@
-import { Category } from "../model/category";
+import { Category } from "../util/model/category";
 import { CategoryRepository } from "./category.repository";
 
 export class CategoryService {
