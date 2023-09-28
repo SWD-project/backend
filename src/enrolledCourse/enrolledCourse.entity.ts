@@ -1,19 +1,23 @@
 import { Schema, model } from "mongoose";
 
-const completeCourseSchema = new Schema(
+const EnrolledCourseSchema = new Schema(
   {
     studentId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    course: {
+    courseId: {
       type: Schema.Types.ObjectId,
       ref: "Course",
+    },
+    totalCompleteLesson: {
+      type: Number,
+      require: true,
     },
   },
   { timestamps: true }
 );
-export const CompleteCourseModel = model(
-  "CompleteCourse",
-  completeCourseSchema
+export const EnrolledCourseModel = model(
+  "EnrolledCourse",
+  EnrolledCourseSchema
 );

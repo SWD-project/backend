@@ -28,7 +28,7 @@ CourseRounter.use((req, res, next) => {
       res.send(errorResponse(error.message)).end();
     }
   })
-  .post("/", async (req, res, next) => {
+  .post("/create-new-course", async (req, res, next) => {
     try {
       const courseData: CreateCourse = req.body;
       const createdCourse = await courseService.createNewCourse(courseData);
