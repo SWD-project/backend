@@ -4,6 +4,7 @@ import { Router } from "express";
 import { CategoryService } from "./category.service";
 import { ResponseBody, errorResponse } from "../util/model";
 import { Category } from "../util/model/category";
+import { CreateCategoryRequest } from "../util/model/category/create-category";
 
 const CategoryRounter = Router();
 CategoryRounter.use(bodyParser.json());
@@ -29,6 +30,15 @@ CategoryRounter.use((req, res, next) => {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  });
+  })
 
+  //POST
+  .post("/create-category", async (req, res, next) => {
+    try {
+      const createdCategoryRequest: CreateCategoryRequest = req.body;
+      const listCategory = await categoryService.createCategory(
+        createdCategoryRequest
+      );
+    } catch (error) {}
+  });
 export default CategoryRounter;

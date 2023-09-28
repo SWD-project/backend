@@ -32,16 +32,23 @@ export class UserRepository {
     }
   };
 
-  public createUser = async (userData: CreateUserRequest) => {
+  public createUser = async (
+    birthDate: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    phoneNumber: string,
+    uuid: string
+  ) => {
     try {
       const createdUser = await UserModel.create({
-        birthDate: userData.birthDate,
-        email: userData.email,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
+        birthDate,
+        email,
+        firstName,
+        lastName,
         roleId: 0,
-        phoneNumber: userData.phoneNumber,
-        uuid: userData.uuid
+        phoneNumber,
+        uuid,
       });
       console.log(createdUser);
       return createdUser;
