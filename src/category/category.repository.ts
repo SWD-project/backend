@@ -8,4 +8,10 @@ export class CategoryRepository {
       return CategoryModel.find();
     }
   };
+  public createCategory = async (name: string) => {
+    const createdCategory = await CategoryModel.create({
+      name,
+    });
+    return createdCategory;
+  };
 }
