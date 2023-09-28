@@ -13,7 +13,12 @@ export class UserService {
   public async createNewUser(createUserN: CreateUserRequest) {
     try {
       const createdUser = (await this.userRepository.createUser(
-        createUserN
+        createUserN.birthDate,
+        createUserN.email,
+        createUserN.firstName,
+        createUserN.lastName,
+        createUserN.phoneNumber,
+        createUserN.uuid
       )) as unknown as User;
       return createdUser;
     } catch (error: any) {
