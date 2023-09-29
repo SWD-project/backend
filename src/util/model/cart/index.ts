@@ -1,6 +1,6 @@
 export interface Cart {
   _id: any;
-  studentId: number;
-  sessionId: number;
+  studentId: string;
+  sessionId: string;
   column: number;
 }

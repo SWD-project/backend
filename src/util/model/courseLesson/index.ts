@@ -1,8 +1,8 @@
 export interface CourseLesson {
   _id: any;
-  courseSectionId: number;
-  description: number;
-  title: number;
+  courseSectionId: string;
+  description: string;
+  title: string;
   duration: number;
   index: number;
 }

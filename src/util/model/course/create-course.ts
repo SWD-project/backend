@@ -8,8 +8,8 @@ export interface CreateCourse {
   createAt: string;
   updateAt: string;
   outcome: string;
-  courseStatusId: number;
+  courseStatusId: string;
   totalLesson: number;
   level: number;
-  categoryId: number;
+  categoryId: string;
 }

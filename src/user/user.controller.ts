@@ -78,12 +78,13 @@ UserRouter.use((req, res, next) => {
           message: "Create user success",
           status: "success",
         };
-        res.status(201).json(response);
+        res.send(response).end;
       } else {
         res.status(400).json(errorResponse("Không thể tạo người dùng."));
       }
     } catch (error: any) {
-      res.status(400).json(errorResponse(error.message));
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
     }
   });
 

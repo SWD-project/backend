@@ -8,4 +8,15 @@ export class CourseStatusRepository {
       return CourseStatusModel.find();
     }
   };
+  public createCourseStatus = async (name: string) => {
+    try {
+      const createCourseStatus = await CourseStatusModel.create({
+        name,
+      });
+      return createCourseStatus;
+    } catch (error: any) {
+      console.log(error);
+      throw new Error("Lỗi khi tạo course status: " + error.message);
+    }
+  };
 }

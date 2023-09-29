@@ -1,7 +1,7 @@
 export interface EnrolledCourse {
   _id: any;
-  studentId: number;
-  courseId: number;
+  studentId: string;
+  courseId: string;
   createAt: string;
   updateAt: string;
   totalCompleteLesson: number;
