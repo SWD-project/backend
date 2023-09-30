@@ -11,8 +11,7 @@ const UserSchema = new Schema(
       require: true,
     },
     roleId: {
-      type: Schema.Types.ObjectId,
-      ref: "Role",
+      type: String
     },
     email: {
       type: String,
