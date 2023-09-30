@@ -6,11 +6,11 @@ const CourseLessonSchema = new Schema({
     ref: "CourseSection",
   },
   description: {
-    type: Number,
+    type: String,
     require: true,
   },
   title: {
-    type: Number,
+    type: String,
     require: true,
   },
   duration: {

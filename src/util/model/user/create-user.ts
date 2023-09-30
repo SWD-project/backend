@@ -3,6 +3,8 @@ export interface CreateUserRequest {
   lastName: string;
   birthDate: string;
   email: string;
+
+  roleId: string;
   phoneNumber: string;
   uuid: string;
 }

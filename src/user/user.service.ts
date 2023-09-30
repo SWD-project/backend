@@ -9,7 +9,6 @@ export class UserService {
   constructor() {
     this.userRepository = new UserRepository();
   }
-
   public async createNewUser(createUserN: CreateUserRequest) {
     try {
       const createdUser = (await this.userRepository.createUser(

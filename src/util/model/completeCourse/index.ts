@@ -1,6 +1,6 @@
 export interface CompleteCourse {
   _id: any;
-  studentId: number;
-  courseId: number;
+  studentId: string;
+  courseId: string;
   createAt: string;
 }

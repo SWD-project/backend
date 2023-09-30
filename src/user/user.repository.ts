@@ -19,18 +19,18 @@ export class UserRepository {
     }
   };
 
-  public updateUser = async (id: string, updatedData: any) => {
-    try {
-      const updatedUser = await UserModel.findByIdAndUpdate(id, updatedData, {
-        new: true,
-      });
-      return updatedUser;
-    } catch (error: any) {
-      throw new Error(
-        "Lỗi khi cập nhật thông tin người dùng: " + error.message
-      );
-    }
-  };
+  // public updateUser = async (id: string, updatedData: any) => {
+  //   try {
+  //     const updatedUser = await UserModel.findByIdAndUpdate(id, updatedData, {
+  //       new: true,
+  //     });
+  //     return updatedUser;
+  //   } catch (error: any) {
+  //     throw new Error(
+  //       "Lỗi khi cập nhật thông tin người dùng: " + error.message
+  //     );
+  //   }
+  // };
 
   public createUser = async (
     birthDate: string,
