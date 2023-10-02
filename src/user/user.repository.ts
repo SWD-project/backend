@@ -1,5 +1,3 @@
-import { CreateUserRequest } from "../util/model/user/create-user.ts";
-import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserModel } from "./user.entity.ts";
 
 export class UserRepository {
@@ -19,25 +17,12 @@ export class UserRepository {
     }
   };
 
-  // public updateUser = async (id: string, updatedData: any) => {
-  //   try {
-  //     const updatedUser = await UserModel.findByIdAndUpdate(id, updatedData, {
-  //       new: true,
-  //     });
-  //     return updatedUser;
-  //   } catch (error: any) {
-  //     throw new Error(
-  //       "Lỗi khi cập nhật thông tin người dùng: " + error.message
-  //     );
-  //   }
-  // };
-
   public createUser = async (
     email: string,
     firstName: string,
     lastName: string,
+    roleId: string,
     uuid: string,
-    roleId: string
   ) => {
     try {
       const createdUser = await UserModel.create({
@@ -56,7 +41,11 @@ export class UserRepository {
 
   public updateUserByUuid = async (
     uuid: string,
-    updatedData: UpdateUserRequest
+    updatedData: {
+      firstName: string;
+      lastName: string;
+      email: string;
+    }
   ) => {
     try {
       const updatedUser = await UserModel.updateOne(

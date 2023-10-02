@@ -3,6 +3,7 @@ import { CourseStatusRepository } from "../courseStatus/courseStatus.repository"
 import { Course } from "../util/model/course";
 
 import { CreateCourseRequest } from "../util/model/course/create-course";
+import { CourseStatus } from "../util/model/courseStatus";
 import { CourseRepository } from "./course.repository";
 
 export class CourseService {
@@ -29,25 +30,15 @@ export class CourseService {
   }
   async createNewCourse(courseData: CreateCourseRequest) {
     try {
-      const courseStatus = await this.courseStatusRepository.getCourseStatus(
-        courseData.courseStatusId
-      );
-      const category = await this.categoryRepository.getCategory(
-        courseData.categoryId
-      );
-      if (!courseStatus || !category) {
-        throw new Error(
-          "Không tìm thấy course status hoặc category với id đã cung cấp"
-        );
-      }
+      const courseStatusId = (await this.courseStatusRepository.getCourseStatusByName("Active") as CourseStatus[])
       const createdCourse = (await this.courseRepository.createCourse(
         courseData.title,
         courseData.description,
         courseData.price,
-        courseData.totalLesson,
+        0,
         courseData.level,
         courseData.categoryId,
-        courseData.courseStatusId
+        courseStatusId[0]._id
       )) as unknown as Course;
       return [createdCourse];
     } catch (error: any) {

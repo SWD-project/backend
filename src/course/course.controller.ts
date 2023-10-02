@@ -8,6 +8,8 @@ import {
   CreateCourseRespone,
 } from "../util/model/course/create-course";
 
+
+
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());
 const courseService = new CourseService();
@@ -36,7 +38,7 @@ CourseRounter.use((req, res, next) => {
       const courseData: CreateCourseRequest = req.body;
       const createdCourse = await courseService.createNewCourse(courseData);
 
-      const response: ResponseBody<Course> = {
+      const response: ResponseBody<CreateCourseRespone> = {
         data: createdCourse,
         message: "Tạo khóa học thành công",
         status: "success",

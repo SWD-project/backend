@@ -8,6 +8,11 @@ export class CourseStatusRepository {
       return CourseStatusModel.find();
     }
   };
+  public getCourseStatusByName = (name: string) => {
+    return CourseStatusModel.find({
+      name
+    })
+  }
   public createCourseStatus = async (name: string) => {
     try {
       const createCourseStatus = await CourseStatusModel.create({
