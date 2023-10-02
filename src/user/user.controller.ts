@@ -8,6 +8,8 @@ import {
   UpdateUserRequest,
   UpdateUserResponse,
 } from "../util/model/user/update-user.ts";
+import { GetUserByIdResponse } from "../util/model/user/get-user.ts";
+import { CreateUserRespone } from "../util/model/user/create-user.ts";
 
 const UserRouter = Router();
 UserRouter.use(bodyParser.json());
@@ -38,7 +40,7 @@ UserRouter.use((req, res, next) => {
     try {
       const id = req.params.id;
       const listUser = await userService.getUserById(id);
-      const response: ResponseBody<User> = {
+      const response: ResponseBody<GetUserByIdResponse> = {
         data: listUser,
         message: "Get success",
         status: "success",
@@ -73,7 +75,7 @@ UserRouter.use((req, res, next) => {
       const createdUser = await userService.createNewUser(createUserRequest);
 
       if (createdUser) {
-        const response: ResponseBody<User> = {
+        const response: ResponseBody<CreateUserRespone> = {
           data: [createdUser],
           message: "Create user success",
           status: "success",

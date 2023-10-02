@@ -1,4 +1,6 @@
-export interface CreateCourse {
+import { Course } from ".";
+
+export interface CreateCourseRequest {
   _id: any;
   title: string;
   description: string;
@@ -13,3 +15,4 @@ export interface CreateCourse {
   level: number;
   categoryId: string;
 }
+export interface CreateCourseRespone extends Course {}

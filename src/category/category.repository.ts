@@ -11,10 +11,15 @@ export class CategoryRepository {
   };
 
   public createCategory = async (name: string) => {
-    const createdCategory = await CategoryModel.create({
-      name,
-    });
-    return createdCategory;
+    try {
+      const createdCategory = await CategoryModel.create({
+        name,
+      });
+      return createdCategory;
+    } catch (error: any) {
+      console.log(error);
+      throw new Error("Lỗi khi tạo category: " + error.message);
+    }
   };
 
   public getCategoryByName = async (nameToFind: string) => {
