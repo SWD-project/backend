@@ -5,6 +5,7 @@ import { CourseStatusService } from "./courseStatus.service";
 import { CourseStatus } from "../util/model/courseStatus";
 import { ResponseBody, errorResponse } from "../util/model";
 import { createCourseStatusResponse } from "../util/model/courseStatus/create-course-status";
+import { getCourseStatusByIdRespone } from "../util/model/courseStatus/get-course-status";
 
 const CourseStatusRounter = Router();
 CourseStatusRounter.use(bodyParser.json());
@@ -20,7 +21,7 @@ CourseStatusRounter.use((req, res, next) => {
       const id = req.params.id;
       const listCourseStatus =
         await courseStatusService.getCourseStatusById(id);
-      const response: ResponseBody<CourseStatus> = {
+      const response: ResponseBody<getCourseStatusByIdRespone> = {
         data: listCourseStatus,
         message: "Get all success",
         status: "success",
