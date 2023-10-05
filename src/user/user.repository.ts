@@ -11,9 +11,12 @@ export class UserRepository {
 
   public getUserByUuid = async (uuid: string) => {
     try {
-      return await UserModel.findOne({ uuid });
+      return await UserModel.findOne({
+        uuid,
+      });
     } catch (error: any) {
       console.log(error.message);
+      throw new Error("Lỗi khi lấy thông tin người dùng: " + error.message);
     }
   };
 
@@ -22,7 +25,7 @@ export class UserRepository {
     firstName: string,
     lastName: string,
     roleId: string,
-    uuid: string,
+    uuid: string
   ) => {
     try {
       const createdUser = await UserModel.create({

@@ -1,19 +1,17 @@
-import { CategoryRepository } from "../category/category.repository";
-import { CourseStatusRepository } from "../courseStatus/courseStatus.repository";
+import { UserRepository } from "../user/user.repository.ts";
 import { Course } from "../util/model/course";
 
 import { CreateCourseRequest } from "../util/model/course/create-course";
-import { CourseStatus } from "../util/model/courseStatus";
-import { CourseRepository } from "./course.repository";
+import { User } from "../util/model/user/index.ts";
+import { CourseRepository } from "./course.repository.ts";
 
 export class CourseService {
   private courseRepository: CourseRepository;
-  private courseStatusRepository: CourseStatusRepository;
-  private categoryRepository: CategoryRepository;
+  private userRepository: UserRepository;
+
   constructor() {
     this.courseRepository = new CourseRepository();
-    this.courseStatusRepository = new CourseStatusRepository();
-    this.categoryRepository = new CategoryRepository();
+    this.userRepository = new UserRepository();
   }
   async getCourseById(id: string) {
     const course = (await this.courseRepository.getCourse(
@@ -28,17 +26,21 @@ export class CourseService {
     if (course == null) return [];
     return [course];
   }
-  async createNewCourse(courseData: CreateCourseRequest) {
+  async createNewCourse(uuid: string, courseData: CreateCourseRequest) {
     try {
-      const courseStatusId = (await this.courseStatusRepository.getCourseStatusByName("Active") as CourseStatus[])
+      const user = (await this.userRepository.getUserByUuid(
+        uuid
+      )) as unknown as User;
       const createdCourse = (await this.courseRepository.createCourse(
+        user._id,
         courseData.title,
         courseData.description,
         courseData.price,
-        0,
         courseData.level,
         courseData.categoryId,
-        courseStatusId[0]._id
+        courseData.discountPercent,
+        courseData.outcome,
+        courseData.thumbnailUrl
       )) as unknown as Course;
       return [createdCourse];
     } catch (error: any) {

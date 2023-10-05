@@ -28,11 +28,9 @@ export class CategoryService {
     return [createdCategory]
   }
 
-  public getCategory = async (): Promise<string[]> => {
+  public getCategory = async () => {
     const categories = await this.categoryRepository.getCategory() as unknown as Category[];
-    if (categories === null) return [];
-  
-    return categories.map((category) => category.name);
+    return categories;
   }
 
   public deleteCategory = async (name : string) => {

@@ -6,7 +6,9 @@ import { CartDetail } from "../util/model/cartDetail";
 
 const CartDetailRouter = Router();
 CartDetailRouter.use(bodyParser.json());
+
 const cartDetailService = new CartDetailService();
+
 CartDetailRouter.use((req, res, next) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");

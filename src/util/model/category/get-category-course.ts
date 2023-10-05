@@ -1,6 +1,9 @@
 import { Category } from ".";
 import { Course } from "../course";
 
-export interface GetCategoryCourse extends Category {
+export interface GetCategoryCourseRequest {
+  id: string
+}
+export interface GetCategoryCourseResponse extends Category {
   course: Course[];
 }
