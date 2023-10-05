@@ -15,8 +15,8 @@ export class UserService {
         createUserN.email,
         createUserN.firstName,
         createUserN.lastName,
+        createUserN.roleId,
         createUserN.uuid,
-        createUserN.roleId
       )) as unknown as User;
       return createdUser;
     } catch (error: any) {
