@@ -58,10 +58,7 @@ export class UserRepository {
     }
   };
 
-  public updateUserByUuid = async (
-    uuid: string,
-    updatedData: UpdateUserRequest
-  ) => {
+  public updateUserByUuid = async (uuid: string, updatedData: {}) => {
     try {
       const updatedUser = await UserModel.updateOne(
         { uuid },

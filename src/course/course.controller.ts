@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import { Router } from "express";
 import { CourseService } from "./course.service";
 import { ResponseBody, errorResponse } from "../util/model";
-import { Course } from "../util/model/course";
+import { Course, CourseRespone } from "../util/model/course";
 import {
   CreateCourseRequest,
   CreateCourseRespone,
@@ -20,7 +20,7 @@ CourseRounter.use((req, res, next) => {
   .post("/", async (req, res, next) => {
     try {
       const listCourse = await courseService.getAllCourse();
-      const response: ResponseBody<Course> = {
+      const response: ResponseBody<CourseRespone> = {
         data: listCourse,
         message: "Get all success",
         status: "success",
@@ -35,8 +35,7 @@ CourseRounter.use((req, res, next) => {
     try {
       const courseData: CreateCourseRequest = req.body;
       const createdCourse = await courseService.createNewCourse(courseData);
-
-      const response: ResponseBody<Course> = {
+      const response: ResponseBody<CreateCourseRespone> = {
         data: createdCourse,
         message: "Tạo khóa học thành công",
         status: "success",

@@ -15,3 +15,4 @@ export interface Course {
   level: number;
   categoryId: number;
 }
+export interface CourseRespone extends Course {}

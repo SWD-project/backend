@@ -29,17 +29,17 @@ export class CourseService {
   }
   async createNewCourse(courseData: CreateCourseRequest) {
     try {
-      const courseStatus = await this.courseStatusRepository.getCourseStatus(
-        courseData.courseStatusId
-      );
-      const category = await this.categoryRepository.getCategory(
-        courseData.categoryId
-      );
-      if (!courseStatus || !category) {
-        throw new Error(
-          "Không tìm thấy course status hoặc category với id đã cung cấp"
-        );
-      }
+      // const courseStatus = await this.courseStatusRepository.getCourseStatus(
+      //   courseData.courseStatusId
+      // );
+      // const category = await this.categoryRepository.getCategory(
+      //   courseData.categoryId
+      // );
+      // if (!courseStatus || !category) {
+      //   throw new Error(
+      //     "Không tìm thấy course status hoặc category với id đã cung cấp"
+      //   );
+      
       const createdCourse = (await this.courseRepository.createCourse(
         courseData.title,
         courseData.description,
