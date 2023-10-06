@@ -4,7 +4,10 @@ import { Router, response } from "express";
 import { CategoryService } from "./category.service.ts";
 
 import { Category } from "../util/model/category/index.ts";
-import { CreateCategoryRequest, CreateCategoryResponse } from "../util/model/category/create-category.ts";
+import {
+  CreateCategoryRequest,
+  CreateCategoryResponse,
+} from "../util/model/category/create-category.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { GetCategoryResponse } from "../util/model/category/get-category.ts";
 
@@ -19,17 +22,16 @@ CategoryRounter.use((req, res, next) => {
   next();
 })
 
-  
   .post("/get", async (req, res, next) => {
     try {
       const listCategory = await categoryService.getCategory();
       const response: ResponseBody<GetCategoryResponse> = {
-        data : listCategory,
+        data: listCategory,
         message: "get category success",
-        status: "success"
-      }
+        status: "success",
+      };
       res.send(response).end();
-    } catch (error : any) {
+    } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
@@ -43,12 +45,12 @@ CategoryRounter.use((req, res, next) => {
       );
 
       const response: ResponseBody<CreateCategoryResponse> = {
-        data : createdCategory,
+        data: createdCategory,
         message: "create category success",
-        status: "success"
-      }
+        status: "success",
+      };
       res.send(response).end();
-    } catch (error : any) {
+    } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
@@ -58,19 +60,17 @@ CategoryRounter.use((req, res, next) => {
     try {
       const nameToDelete = req.params.name;
       await categoryService.deleteCategory(nameToDelete);
-    
+
       const response: ResponseBody<any> = {
-        data : [],
+        data: [],
         message: "delete category success",
-        status: "success"
-      }
+        status: "success",
+      };
       res.send(response).end();
-    } catch (error : any) {
+    } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  })
+  });
 
-  ;
-  
 export default CategoryRounter;
