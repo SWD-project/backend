@@ -7,6 +7,7 @@ import { Category } from "../util/model/category/index.ts";
 import { CreateCategoryRequest, CreateCategoryResponse } from "../util/model/category/create-category.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { GetCategoryResponse } from "../util/model/category/get-category.ts";
+import { GetCategoryCourseRequest, GetCategoryCourseResponse, HomeResponse } from "../util/model/category/get-category-course.ts";
 
 const CategoryRounter = Router();
 CategoryRounter.use(bodyParser.json());
@@ -62,6 +63,43 @@ CategoryRounter.use((req, res, next) => {
       const response: ResponseBody<any> = {
         data : [],
         message: "delete category success",
+        status: "success"
+      }
+      res.send(response).end();
+    } catch (error : any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/get/:id", async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const page = parseInt(req.query.page as string, 10) || 1;
+      const limit = parseInt(req.query.limit as string, 10) || 10;
+      const category = await categoryService.getCategoryById(id, page, limit);
+
+
+      const response: ResponseBody<GetCategoryCourseResponse> = {
+        data : category,
+        message: "get category success",
+        status: "success"
+      }
+      res.send(response).end();
+     
+    } catch (error : any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/home", async (req, res, next) => {
+    try {
+      const home = await categoryService.home();
+
+      const response: ResponseBody<HomeResponse> = {
+        data : home,
+        message: "get category success",
         status: "success"
       }
       res.send(response).end();
