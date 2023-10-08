@@ -31,17 +31,12 @@ export class CourseService {
       const user = (await this.userRepository.getUserByUuid(
         uuid
       )) as unknown as User;
-      const createdCourse = (await this.courseRepository.createCourse(
-        user._id,
-        courseData.title,
-        courseData.description,
-        courseData.price,
-        courseData.level,
-        courseData.categoryId,
-        courseData.discountPercent,
-        courseData.outcome,
-        courseData.thumbnailUrl
-      )) as unknown as Course;
+      if (user.roleId !== "1") throw new Error("Unauthorized");
+
+      const createdCourse = (await this.courseRepository.createCourse({
+        ...courseData,
+        lectureId: user._id,
+      })) as unknown as Course;
       return [createdCourse];
     } catch (error: any) {
       throw new Error("Lỗi khi tạo khóa học mới: " + error.message);

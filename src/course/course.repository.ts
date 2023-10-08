@@ -8,30 +8,22 @@ export class CourseRepository {
       return await CourseModel.find();
     }
   };
-  public createCourse = async (
-    lectureId: string,
-    title: string,
-    description: string,
-    price: number,
-    level: number,
-    categoryId: string,
-    discountPercent: number,
-    outcome: string,
-    thumbnailUrl: string
-  ) => {
+  public createCourse = async (variables: {
+    lectureId: string;
+    title: string;
+    description: string;
+    price: number;
+    level: number;
+    categoryId: string;
+    discountPercent: number;
+    outcome: string;
+    thumbnailUrl: string;
+  }) => {
     try {
       const createCourse = await CourseModel.create({
-        lectureId,
-        categoryId,
-        courseStatus: 1,
-        description,
-        discountPercent,
-        level,
-        outcome,
-        price,
+        ...variables,
         rating: 0,
-        thumbnailUrl,
-        title,
+        courseStatus: 1,
         totalLesson: 0,
       });
       return createCourse;
