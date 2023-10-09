@@ -43,4 +43,15 @@ export class CourseService {
       throw new Error("Lỗi khi tạo khóa học mới: " + error.message);
     }
   }
+
+  async getCourseByCategoryId(categoryId: string, pageNumber:number, pageSize:number) {
+    const course = (await this.courseRepository.getCourseByCategoryId(categoryId, pageNumber, pageSize)) as unknown as Course[];
+    
+    if (course == null) return [];
+    return course;
+  }
+
+  async countCourse(categoryId: string) {
+    return await this.courseRepository.countCourse(categoryId);
+  }
 }

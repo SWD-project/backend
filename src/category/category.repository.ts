@@ -27,4 +27,8 @@ export class CategoryRepository {
     });
     return deletionResult;
   };
+
+  public getCategoryById = async(id: string) => {
+    return await CategoryModel.findById(id);
+  }
 }
