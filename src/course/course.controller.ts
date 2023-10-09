@@ -1,16 +1,19 @@
 import bodyParser from "body-parser";
 import { Router } from "express";
 import { CourseService } from "./course.service";
-import { ResponseBody, errorResponse } from "../util/model";
+import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { Course, CourseRespone } from "../util/model/course";
 import {
   CreateCourseRequest,
   CreateCourseRespone,
 } from "../util/model/course/create-course";
+import { getAuthorization } from "../util/get-authorization.ts";
 
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());
+
 const courseService = new CourseService();
+
 CourseRounter.use((req, res, next) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
@@ -34,8 +37,8 @@ CourseRounter.use((req, res, next) => {
   .post("/create-new-course", async (req, res, next) => {
     try {
       const courseData: CreateCourseRequest = req.body;
-      const createdCourse = await courseService.createNewCourse(courseData);
-      const response: ResponseBody<CreateCourseRespone> = {
+      const uuid = getAuthorization(req)
+      const createdCourse = await courseService.createNewCourse(uuid, courseData);
         data: createdCourse,
         message: "Tạo khóa học thành công",
         status: "success",
@@ -47,9 +50,3 @@ CourseRounter.use((req, res, next) => {
     }
   });
 export default CourseRounter;
-// function post(
-//   arg0: string,
-//   arg1: (req: any, res: any, next: any) => Promise<void>
-// ) {
-//   throw new Error("Function not implemented.");
-// }

@@ -4,6 +4,7 @@ const CourseSchema = new Schema(
     lectureId: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      require: true
     },
     title: {
       type: String,
@@ -33,9 +34,8 @@ const CourseSchema = new Schema(
       type: String,
       require: true,
     },
-    courseStatusId: {
-      type: Schema.Types.ObjectId,
-      ref: "CourseStatus",
+    courseStatus: {
+      type: Number,
     },
     totalLesson: {
       type: Number,

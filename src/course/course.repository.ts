@@ -1,35 +1,30 @@
-import { CategoryRepository } from "../category/category.repository.ts";
-import { CourseStatusRepository } from "../courseStatus/courseStatus.repository.ts";
-import { CreateCourseRequest } from "../util/model/course/create-course.ts";
-import { Course } from "../util/model/course/index.ts";
 import { CourseModel } from "./course.entity.ts";
 
 export class CourseRepository {
-  public getCourse = (id?: string) => {
+  public getCourse = async (id?: string) => {
     if (id) {
-      return CourseModel.findById(id);
+      return await CourseModel.findById(id);
     } else {
-      return CourseModel.find();
+      return await CourseModel.find();
     }
   };
-  public createCourse = async (
-    title: string,
-    description: string,
-    price: number,
-    totalLesson: number,
-    level: number,
-    categoryId: string,
-    courseStatusId: string
-  ) => {
+  public createCourse = async (variables: {
+    lectureId: string;
+    title: string;
+    description: string;
+    price: number;
+    level: number;
+    categoryId: string;
+    discountPercent: number;
+    outcome: string;
+    thumbnailUrl: string;
+  }) => {
     try {
       const createCourse = await CourseModel.create({
-        title,
-        description,
-        price,
-        totalLesson,
-        level,
-        categoryId,
-        courseStatusId,
+        ...variables,
+        rating: 0,
+        courseStatus: 1,
+        totalLesson: 0,
       });
       return createCourse;
     } catch (error: any) {

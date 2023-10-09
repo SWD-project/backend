@@ -10,7 +10,7 @@ export interface Course {
   createAt: string;
   updateAt: string;
   outcome: string;
-  courseStatusId: number;
+  courseStatus: number;
   totalLesson: number;
   level: number;
   categoryId: number;

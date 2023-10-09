@@ -1,5 +1,3 @@
-import { CreateUserRequest } from "../util/model/user/create-user.ts";
-import { UpdateUserRequest } from "../util/model/user/update-user.ts";
 import { UserModel } from "./user.entity.ts";
 
 export class UserRepository {
@@ -13,44 +11,30 @@ export class UserRepository {
 
   public getUserByUuid = async (uuid: string) => {
     try {
-      return await UserModel.findOne({ uuid });
+      return await UserModel.findOne({
+        uuid,
+      });
     } catch (error: any) {
       console.log(error.message);
+      throw new Error("Lỗi khi lấy thông tin người dùng: " + error.message);
     }
   };
 
-  // public updateUser = async (id: string, updatedData: any) => {
-  //   try {
-  //     const updatedUser = await UserModel.findByIdAndUpdate(id, updatedData, {
-  //       new: true,
-  //     });
-  //     return updatedUser;
-  //   } catch (error: any) {
-  //     throw new Error(
-  //       "Lỗi khi cập nhật thông tin người dùng: " + error.message
-  //     );
-  //   }
-  // };
-
   public createUser = async (
-    birthDate: string,
     email: string,
     firstName: string,
     lastName: string,
-    phoneNumber: string,
+    roleId: string,
     uuid: string
   ) => {
     try {
       const createdUser = await UserModel.create({
-        birthDate,
         email,
         firstName,
         lastName,
-        roleId: 0,
-        phoneNumber,
+        roleId,
         uuid,
       });
-      console.log(createdUser);
       return createdUser;
     } catch (error: any) {
       console.log(error);
@@ -58,7 +42,15 @@ export class UserRepository {
     }
   };
 
-  public updateUserByUuid = async (uuid: string, updatedData: {}) => {
+
+  public updateUserByUuid = async (
+    uuid: string,
+    updatedData: {
+      firstName: string;
+      lastName: string;
+      email: string;
+    }
+  ) => {
     try {
       const updatedUser = await UserModel.updateOne(
         { uuid },

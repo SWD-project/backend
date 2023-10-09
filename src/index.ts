@@ -6,6 +6,8 @@ import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import UserRouter from "./user/user.controller.ts";
+import CategoryRounter from "./category/category.controller.ts";
+import CourseRounter from "./course/course.controller.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -17,6 +19,8 @@ console.log(__dirname);
 app.use(express.static(__dirname + "/public"));
 
 app.use("/user", UserRouter);
+app.use("/category", CategoryRounter)
+app.use("/course", CourseRounter)
 connectDB();
 
 const server = createServer(app);
