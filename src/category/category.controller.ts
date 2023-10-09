@@ -72,13 +72,16 @@ CategoryRounter.use((req, res, next) => {
     }
   })
 
-  .post("/get/:id", async (req, res, next) => {
+  .post("/get-a-category", async (req, res, next) => {
     try {
-      const id = req.params.id;
-      const page = parseInt(req.query.page as string, 10) || 1;
-      const limit = parseInt(req.query.limit as string, 10) || 10;
-      const category = await categoryService.getCategoryById(id, page, limit);
+      const request : GetCategoryCourseRequest = req.body; 
+      const id = request.id;
+      if (!id) throw Error("Id is required");
 
+      const page = request.page || 1;
+      const limit = request.limit || 10;
+
+      const category = await categoryService.getCategoryById(id, page, limit);
 
       const response: ResponseBody<GetCategoryCourseResponse> = {
         data : category,

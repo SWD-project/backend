@@ -2,8 +2,9 @@ import { Category } from ".";
 import { Course } from "../course";
 
 export interface GetCategoryCourseRequest {
-  page : number;
-  limit : number;
+  id : string;
+  page?: number;
+  limit?: number;
 }
 export interface GetCategoryCourseResponse {
   _id : string;
