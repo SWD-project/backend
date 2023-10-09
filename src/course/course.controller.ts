@@ -1,8 +1,8 @@
 import bodyParser from "body-parser";
 import { Router } from "express";
-import { CourseService } from "./course.service";
+import { CourseService } from "./course.service.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
-import { Course, CourseRespone } from "../util/model/course";
+import { Course } from "../util/model/course";
 import {
   CreateCourseRequest,
   CreateCourseRespone,
@@ -23,7 +23,7 @@ CourseRounter.use((req, res, next) => {
   .post("/", async (req, res, next) => {
     try {
       const listCourse = await courseService.getAllCourse();
-      const response: ResponseBody<CourseRespone> = {
+      const response: ResponseBody<Course> = {
         data: listCourse,
         message: "Get all success",
         status: "success",
@@ -39,6 +39,8 @@ CourseRounter.use((req, res, next) => {
       const courseData: CreateCourseRequest = req.body;
       const uuid = getAuthorization(req)
       const createdCourse = await courseService.createNewCourse(uuid, courseData);
+
+      const response: ResponseBody<CreateCourseRespone> = {
         data: createdCourse,
         message: "Tạo khóa học thành công",
         status: "success",

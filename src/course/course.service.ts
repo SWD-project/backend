@@ -28,7 +28,6 @@ export class CourseService {
   }
   async createNewCourse(uuid: string, courseData: CreateCourseRequest) {
     try {
-
       const user = (await this.userRepository.getUserByUuid(
         uuid
       )) as unknown as User;

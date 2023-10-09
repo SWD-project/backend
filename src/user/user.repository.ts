@@ -42,7 +42,6 @@ export class UserRepository {
     }
   };
 
-
   public updateUserByUuid = async (
     uuid: string,
     updatedData: {
