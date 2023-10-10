@@ -10,6 +10,7 @@ import {
 } from "../util/model/category/create-category.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { GetCategoryResponse } from "../util/model/category/get-category.ts";
+import { GetCategoryCourseRequest, GetCategoryCourseResponse, HomeResponse } from "../util/model/category/get-category-course.ts";
 
 const CategoryRounter = Router();
 CategoryRounter.use(bodyParser.json());
@@ -73,4 +74,45 @@ CategoryRounter.use((req, res, next) => {
     }
   });
 
+  .post("/get-a-category", async (req, res, next) => {
+    try {
+      const request : GetCategoryCourseRequest = req.body; 
+      const id = request.id;
+      if (!id) throw Error("Id is required");
+
+      const page = request.page || 1;
+      const limit = request.limit || 10;
+
+      const category = await categoryService.getCategoryById(id, page, limit);
+
+      const response: ResponseBody<GetCategoryCourseResponse> = {
+        data : category,
+        message: "get category success",
+        status: "success"
+      }
+      res.send(response).end();
+     
+    } catch (error : any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/home", async (req, res, next) => {
+    try {
+      const home = await categoryService.home();
+
+      const response: ResponseBody<HomeResponse> = {
+        data : home,
+        message: "get category success",
+        status: "success"
+      }
+      res.send(response).end();
+    } catch (error : any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  ;
 export default CategoryRounter;

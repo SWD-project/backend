@@ -2,18 +2,20 @@ import { Category } from ".";
 import { Course } from "../course";
 
 export interface GetCategoryCourseRequest {
-  categoryId: string;
-  page: number;
-  limit: number;
+  id: string;
+  page?: number;
+  limit?: number;
 }
-export interface GetCategoryCourseResponse extends Category {
+export interface GetCategoryCourseResponse {
+  _id: string;
+  name: string;
   course: Course[];
-  totalPage: number;
+  total: number;
 }
 
-export interface GetHomePageRequest {
-
-}
-export interface GetHomePageResponse extends Array<GetCategoryCourseResponse> {
-
+export interface HomeRequest {}
+export interface HomeResponse {
+  _id: string;
+  name: string;
+  course: Course[];
 }

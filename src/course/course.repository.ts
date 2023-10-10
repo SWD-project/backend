@@ -32,4 +32,17 @@ export class CourseRepository {
       throw new Error("Lỗi khi tạo thông tin khóa học: " + error.message);
     }
   };
+
+  public getCourseByCategoryId = async (categoryId:string, page:number, pageSize:number) => {
+    const skip = (page - 1) * pageSize;
+  
+    return await CourseModel.find({ categoryId })
+      .skip(skip)
+      .limit(pageSize)
+      .exec();
+  };
+
+  public countCourse = async(categoryId:string) => {
+    return await CourseModel.countDocuments({ categoryId });
+  }
 }
