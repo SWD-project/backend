@@ -1,4 +1,4 @@
-import { SearchCourseRequest } from "../util/model/course/search-course.ts";
+import { config } from "../util/model/index.ts";
 import { CourseModel } from "./course.entity.ts";
 
 export class CourseRepository {
@@ -9,30 +9,22 @@ export class CourseRepository {
       return await CourseModel.find({courseStatus : 1});
     }
   };
-  public createCourse = async (
-    lectureId: string,
-    title: string,
-    description: string,
-    price: number,
-    level: number,
-    categoryId: string,
-    discountPercent: number,
-    outcome: string,
-    thumbnailUrl: string
-  ) => {
+  public createCourse = async (variables: {
+    lectureId: string;
+    title: string;
+    description: string;
+    price: number;
+    level: number;
+    categoryId: string;
+    discountPercent: number;
+    outcome: string;
+    thumbnailUrl: string;
+  }) => {
     try {
       const createCourse = await CourseModel.create({
-        lectureId,
-        categoryId,
-        courseStatus: 1,
-        description,
-        discountPercent,
-        level,
-        outcome,
-        price,
+        ...variables,
         rating: 0,
-        thumbnailUrl,
-        title,
+        courseStatus: config.courseActive,
         totalLesson: 0,
       });
       return createCourse;

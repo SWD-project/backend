@@ -10,7 +10,11 @@ import {
 } from "../util/model/category/create-category.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { GetCategoryResponse } from "../util/model/category/get-category.ts";
-import { GetCategoryCourseRequest, GetCategoryCourseResponse, HomeResponse } from "../util/model/category/get-category-course.ts";
+import {
+  GetCategoryCourseRequest,
+  GetCategoryCourseResponse,
+  HomeResponse,
+} from "../util/model/category/get-category-course.ts";
 
 const CategoryRounter = Router();
 CategoryRounter.use(bodyParser.json());
@@ -76,7 +80,7 @@ CategoryRounter.use((req, res, next) => {
 
   .post("/get-a-category", async (req, res, next) => {
     try {
-      const request : GetCategoryCourseRequest = req.body; 
+      const request: GetCategoryCourseRequest = req.body;
       const id = request.id;
       if (!id) throw Error("Id is required");
 
@@ -86,13 +90,12 @@ CategoryRounter.use((req, res, next) => {
       const category = await categoryService.getCategoryById(id, page, limit);
 
       const response: ResponseBody<GetCategoryCourseResponse> = {
-        data : category,
+        data: category,
         message: "get category success",
-        status: "success"
-      }
+        status: "success",
+      };
       res.send(response).end();
-     
-    } catch (error : any) {
+    } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
@@ -103,16 +106,14 @@ CategoryRounter.use((req, res, next) => {
       const home = await categoryService.home();
 
       const response: ResponseBody<HomeResponse> = {
-        data : home,
+        data: home,
         message: "get category success",
-        status: "success"
-      }
+        status: "success",
+      };
       res.send(response).end();
-    } catch (error : any) {
+    } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  })
-
-  ;
+  });
 export default CategoryRounter;

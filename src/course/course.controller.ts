@@ -2,13 +2,13 @@ import bodyParser from "body-parser";
 import { Router } from "express";
 import { CourseService } from "./course.service.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
-import { Course } from "../util/model/course";
 import {
   CreateCourseRequest,
   CreateCourseRespone,
 } from "../util/model/course/create-course";
 import { getAuthorization } from "../util/get-authorization.ts";
 import { SearchCourseRequest, SearchCourseResponse } from "../util/model/course/search-course.ts";
+import { GetCourseResponse } from "../util/model/course/get-course.ts";
 
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());
@@ -24,7 +24,7 @@ CourseRounter.use((req, res, next) => {
   .post("/", async (req, res, next) => {
     try {
       const listCourse = await courseService.getAllCourse();
-      const response: ResponseBody<Course> = {
+      const response: ResponseBody<GetCourseResponse> = {
         data: listCourse,
         message: "Get all success",
         status: "success",
@@ -42,7 +42,7 @@ CourseRounter.use((req, res, next) => {
       const uuid = getAuthorization(req)
       const createdCourse = await courseService.createNewCourse(uuid, courseData);
 
-      const response: ResponseBody<CreateCourseRespone> = {
+      const response : ResponseBody<CreateCourseRespone> = {
         data: createdCourse,
         message: "Tạo khóa học thành công",
         status: "success",

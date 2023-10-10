@@ -3,6 +3,7 @@ import { Course } from "../util/model/course";
 
 import { CreateCourseRequest } from "../util/model/course/create-course";
 import { SearchCourseRequest, SearchCourseResponse } from "../util/model/course/search-course.ts";
+import { config } from "../util/model/index.ts";
 import { User } from "../util/model/user/index.ts";
 import { CourseRepository } from "./course.repository.ts";
 
@@ -29,20 +30,17 @@ export class CourseService {
   }
   async createNewCourse(uuid: string, courseData: CreateCourseRequest) {
     try {
+
       const user = (await this.userRepository.getUserByUuid(
         uuid
       )) as unknown as User;
-      const createdCourse = (await this.courseRepository.createCourse(
-        user._id,
-        courseData.title,
-        courseData.description,
-        courseData.price,
-        courseData.level,
-        courseData.categoryId,
-        courseData.discountPercent,
-        courseData.outcome,
-        courseData.thumbnailUrl
-      )) as unknown as Course;
+      if (user.roleId !== config.lecture) throw new Error("Unauthorized");
+      
+
+      const createdCourse = (await this.courseRepository.createCourse({
+        ...courseData,
+        lectureId: user._id,
+      })) as unknown as Course;
       return [createdCourse];
     } catch (error: any) {
       throw new Error("Lỗi khi tạo khóa học mới: " + error.message);
