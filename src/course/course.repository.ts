@@ -1,3 +1,4 @@
+import { config } from "../util/model/index.ts";
 import { CourseModel } from "./course.entity.ts";
 
 export class CourseRepository {
@@ -23,7 +24,7 @@ export class CourseRepository {
       const createCourse = await CourseModel.create({
         ...variables,
         rating: 0,
-        courseStatus: 1,
+        courseStatus: config.courseActive,
         totalLesson: 0,
       });
       return createCourse;

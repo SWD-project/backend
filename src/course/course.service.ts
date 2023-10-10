@@ -2,6 +2,7 @@ import { UserRepository } from "../user/user.repository.ts";
 import { Course } from "../util/model/course";
 
 import { CreateCourseRequest } from "../util/model/course/create-course";
+import { config } from "../util/model/index.ts";
 import { User } from "../util/model/user/index.ts";
 import { CourseRepository } from "./course.repository.ts";
 
@@ -32,7 +33,8 @@ export class CourseService {
       const user = (await this.userRepository.getUserByUuid(
         uuid
       )) as unknown as User;
-      if (user.roleId !== "1") throw new Error("Unauthorized");
+      if (user.roleId !== config.lecture) throw new Error("Unauthorized");
+      
 
       const createdCourse = (await this.courseRepository.createCourse({
         ...courseData,
