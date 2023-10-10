@@ -1,3 +1,4 @@
+import { SearchCourseRequest } from "../util/model/course/search-course.ts";
 import { CourseModel } from "./course.entity.ts";
 
 export class CourseRepository {
@@ -5,7 +6,7 @@ export class CourseRepository {
     if (id) {
       return await CourseModel.findById(id);
     } else {
-      return await CourseModel.find();
+      return await CourseModel.find({courseStatus : 1});
     }
   };
   public createCourse = async (
@@ -51,5 +52,5 @@ export class CourseRepository {
 
   public countCourse = async(categoryId:string) => {
     return await CourseModel.countDocuments({ categoryId });
-  }
+  };
 }

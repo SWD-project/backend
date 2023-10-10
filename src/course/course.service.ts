@@ -2,6 +2,7 @@ import { UserRepository } from "../user/user.repository.ts";
 import { Course } from "../util/model/course";
 
 import { CreateCourseRequest } from "../util/model/course/create-course";
+import { SearchCourseRequest, SearchCourseResponse } from "../util/model/course/search-course.ts";
 import { User } from "../util/model/user/index.ts";
 import { CourseRepository } from "./course.repository.ts";
 
@@ -57,5 +58,32 @@ export class CourseService {
 
   async countCourse(categoryId: string) {
     return await this.courseRepository.countCourse(categoryId);
+  }
+
+  public search = async(title:string, page : number, pageSize: number) => {
+    const courses = (await this.courseRepository.getCourse()) as unknown as Course[];
+
+    
+    if (!courses) return [];
+
+    const filteredCourses = courses.filter((course) =>
+      course.title.toLowerCase().includes(title.toLowerCase())
+    );
+
+    if (filteredCourses.length == 0) console.log("fail " + title);
+    if (filteredCourses.length == 0) return [];
+
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const coursesForPage = filteredCourses.slice(startIndex, endIndex);
+    console.log(coursesForPage[0]._id);
+
+    const response : SearchCourseResponse = {
+      courses : coursesForPage,
+      total : filteredCourses.length,
+    }
+
+    return [response];
   }
 }

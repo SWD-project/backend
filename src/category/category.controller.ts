@@ -72,7 +72,7 @@ CategoryRounter.use((req, res, next) => {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  });
+  })
 
   .post("/get-a-category", async (req, res, next) => {
     try {
