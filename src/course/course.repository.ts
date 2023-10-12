@@ -6,7 +6,7 @@ export class CourseRepository {
     if (id) {
       return await CourseModel.findById(id);
     } else {
-      return await CourseModel.find();
+      return await CourseModel.find({courseStatus : 1});
     }
   };
   public createCourse = async (variables: {
@@ -44,5 +44,5 @@ export class CourseRepository {
 
   public countCourse = async(categoryId:string) => {
     return await CourseModel.countDocuments({ categoryId });
-  }
+  };
 }
