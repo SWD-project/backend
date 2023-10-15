@@ -8,7 +8,7 @@ import {
 } from "../util/model/course/create-course";
 import { getAuthorization } from "../util/get-authorization.ts";
 import { SearchCourseRequest, SearchCourseResponse } from "../util/model/course/search-course.ts";
-import { GetCourseResponse } from "../util/model/course/get-course.ts";
+import { GetCourseRequest, GetCourseResponse } from "../util/model/course/get-course.ts";
 
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());
@@ -66,6 +66,22 @@ CourseRounter.use((req, res, next) => {
       const response: ResponseBody<SearchCourseResponse> = {
         data: courses,
         message: "Search success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+  
+  .post("/get-a-course", async (req, res, next) => {
+    try {
+      const request: GetCourseRequest = req.body;
+      const _course = await courseService.getCourseById(request.courseId);
+      const response: ResponseBody<GetCourseResponse> = {
+        data: _course,
+        message: "Get a course success",
         status: "success",
       };
       res.send(response).end();

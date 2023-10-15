@@ -4,7 +4,7 @@ import { CourseModel } from "./course.entity.ts";
 export class CourseRepository {
   public getCourse = async (id?: string) => {
     if (id) {
-      return await CourseModel.findById(id);
+      return await CourseModel.findById(id).populate("lectureId");
     } else {
       return await CourseModel.find({courseStatus : 1});
     }
