@@ -2,6 +2,7 @@ import { UserRepository } from "../user/user.repository.ts";
 import { Course } from "../util/model/course";
 
 import { CreateCourseRequest } from "../util/model/course/create-course";
+import { GetCourseResponse } from "../util/model/course/get-course.ts";
 import { SearchCourseRequest, SearchCourseResponse } from "../util/model/course/search-course.ts";
 import { config } from "../util/model/index.ts";
 import { User } from "../util/model/user/index.ts";
@@ -18,7 +19,7 @@ export class CourseService {
   async getCourseById(id: string) {
     const course = (await this.courseRepository.getCourse(
       id
-    )) as unknown as Course;
+    )) as unknown as GetCourseResponse;
     if (course == null) return [];
     return [course];
   }
