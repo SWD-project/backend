@@ -26,7 +26,6 @@ CategoryRounter.use((req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   next();
 })
-
   .post("/get", async (req, res, next) => {
     try {
       const listCategory = await categoryService.getCategory();
@@ -89,6 +88,7 @@ CategoryRounter.use((req, res, next) => {
 
       const category = await categoryService.getCategoryById(id, page, limit);
 
+      console.log(category)
       const response: ResponseBody<GetCategoryCourseResponse> = {
         data: category,
         message: "get category success",

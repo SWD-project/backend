@@ -6,7 +6,7 @@ export class CourseRepository {
     if (id) {
       return await CourseModel.findById(id);
     } else {
-      return await CourseModel.find({courseStatus : 1});
+      return await CourseModel.find({ courseStatus: 1 });
     }
   };
   public createCourse = async (variables: {
@@ -33,16 +33,20 @@ export class CourseRepository {
     }
   };
 
-  public getCourseByCategoryId = async (categoryId:string, page:number, pageSize:number) => {
+  public getCourseByCategoryId = async (
+    categoryId: string,
+    page: number,
+    pageSize: number
+  ) => {
     const skip = (page - 1) * pageSize;
-  
+
     return await CourseModel.find({ categoryId })
       .skip(skip)
       .limit(pageSize)
       .exec();
   };
 
-  public countCourse = async(categoryId:string) => {
+  public countCourse = async (categoryId: string) => {
     return await CourseModel.countDocuments({ categoryId });
   };
 }

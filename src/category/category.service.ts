@@ -70,7 +70,7 @@ export class CategoryService {
 
     for (let i = 0; i < categories.length; i++) {
       const category = categories[i];
-      const course = await this.courseService.getCourseByCategoryId(categories[i]._id, 1, 5);
+      const course = await this.courseService.getCourseByCategoryId(categories[i]._id, 1, 10);
       const home : HomeResponse = {
         _id : category._id,
         name : category.name,

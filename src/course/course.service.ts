@@ -48,6 +48,7 @@ export class CourseService {
   }
 
   async getCourseByCategoryId(categoryId: string, pageNumber:number, pageSize:number) {
+    console.log(categoryId, pageNumber, pageSize)
     const course = (await this.courseRepository.getCourseByCategoryId(categoryId, pageNumber, pageSize)) as unknown as Course[];
     
     if (course == null) return [];
