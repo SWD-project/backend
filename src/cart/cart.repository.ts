@@ -1,11 +1,24 @@
-import { CartModel } from "./cart.entity";
+import { CartModel } from "./cart.entity.ts";
 
 export class CartRepository {
-  public getCart = (id?: string) => {
+  public getCart = async (id?: string) => {
     if (id) {
-      return CartModel.findById(id);
+      return await CartModel.findById(id);
     } else {
-      return CartModel.find();
+      return await CartModel.find();
     }
   };
+
+  public getCartByUserId = async (_studentId: string) => {
+    return await CartModel.findOne({studentId: _studentId}).exec();
+  }
+
+  public createCart = async (_studentId: string) => {
+    await CartModel.create(
+      {studentId: _studentId,
+        sessionId: "",
+      }
+    )
+  }
+
 }

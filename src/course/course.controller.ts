@@ -15,6 +15,7 @@ import {
   GetCourseRequest,
   GetCourseResponse,
 } from "../util/model/course/get-course.ts";
+import { UpdateRatingCourseRequest, UpdateRatingCourseResponse } from "../util/model/course/update-rating-course.ts";
 
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());
@@ -82,5 +83,22 @@ CourseRounter.use((req, res, next) => {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  });
+  })
+
+  .post("/update-rating", async (req, res, next) => {
+    try {
+      const request: UpdateRatingCourseRequest = req.body;
+      const _ = await courseService.updateRating(request.courseId, request.rating);
+      const response: ResponseBody<UpdateRatingCourseResponse> = {
+        data: [],
+        message: "update rating success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+  ;
 export default CourseRounter;

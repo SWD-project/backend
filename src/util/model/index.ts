@@ -22,4 +22,5 @@ export const config = {
   basic: 1,
   intermediate: 2,
   advanced: 3,
+  vnpay: 1
 };

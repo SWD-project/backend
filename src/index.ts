@@ -8,6 +8,8 @@ import { fileURLToPath } from "url";
 import UserRouter from "./user/user.controller.ts";
 import CategoryRounter from "./category/category.controller.ts";
 import CourseRounter from "./course/course.controller.ts";
+import CartRounter from "./cart/cart.controller.ts";
+import CartDetailRouter from "./cartDetail/cartDetail.controller.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -21,6 +23,8 @@ app.use(express.static(__dirname + "/public"));
 app.use("/user", UserRouter);
 app.use("/category", CategoryRounter)
 app.use("/course", CourseRounter)
+app.use("/cart", CartRounter)
+app.use("/cart-detail", CartDetailRouter)
 connectDB();
 
 const server = createServer(app);

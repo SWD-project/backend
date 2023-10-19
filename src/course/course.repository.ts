@@ -49,4 +49,8 @@ export class CourseRepository {
   public countCourse = async (categoryId: string) => {
     return await CourseModel.countDocuments({ categoryId });
   };
+
+  public updateRating = async (courseId: string, rating: number) => {
+    await CourseModel.updateOne({ _id: courseId }, { $set: { rating } });
+  };
 }

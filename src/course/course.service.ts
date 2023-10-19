@@ -86,4 +86,10 @@ export class CourseService {
 
     return [response];
   }
+
+  public updateRating = async(courseId: string, rating: number) => {
+    if (rating < 0 || rating > 5) throw Error("Invalid rating!");
+    
+    await this.courseRepository.updateRating(courseId, rating);
+  }
 }
