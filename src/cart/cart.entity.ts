@@ -6,12 +6,8 @@ const CartSchema = new Schema({
     ref: "User",
   },
   sessionId: {
-    type: Schema.Types.ObjectId,
-    ref: "",
+    type: String,
   },
-  column: {
-    type: Number,
-    require: true,
-  },
-});
+  
+}, { timestamps: true });
 export const CartModel = model("Cart", CartSchema);

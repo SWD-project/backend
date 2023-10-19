@@ -21,5 +21,5 @@ const CourseLessonSchema = new Schema({
     type: Number,
     require: true,
   },
-});
+}, { timestamps: true });
 export const courseLessonModel = model("CourseLesson", CourseLessonSchema);

@@ -9,5 +9,5 @@ const CartDetailSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Course",
   },
-});
+}, { timestamps: true });
 export const CartDetailModel = model("CartDetail", CartDetailSchema);

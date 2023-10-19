@@ -17,5 +17,5 @@ const CourseSectionSchema = new Schema({
     type: String,
     require: true,
   },
-});
+}, { timestamps: true });
 export const CourseSectionModel = model("CourseSection", CourseSectionSchema);
