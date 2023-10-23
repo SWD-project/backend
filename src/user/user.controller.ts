@@ -88,6 +88,23 @@ UserRouter.use((req, res, next) => {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  });
+  })
+  
+  .post("/checkout", async (req, res, next) => {
+    try {
+      //TODO
+
+      const response: ResponseBody<any> = {
+        data: [],
+        message: "Create user success",
+        status: "success",
+      };
+      res.send(response).end;
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+  ;
 
 export default UserRouter;

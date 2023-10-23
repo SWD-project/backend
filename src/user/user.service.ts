@@ -1,3 +1,4 @@
+import { getAuthorization } from "../util/get-authorization.ts";
 import { CreateUserRequest } from "../util/model/user/create-user.ts";
 import { User } from "../util/model/user/index.ts";
 import { UpdateUserRequest } from "../util/model/user/update-user.ts";
@@ -60,5 +61,12 @@ export class UserService {
     } catch (error: any) {
       throw new Error("Lỗi khi xóa người dùng: " + error.message);
     }
+  }
+
+  public getUserId = async(uuid: string) => {
+    const user = await this.getUserByUuid(uuid);
+    if ( user.length === 0) throw Error("Invalid Authorization!");
+
+    return user[0]._id;
   }
 }

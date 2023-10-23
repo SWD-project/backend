@@ -10,6 +10,7 @@ import CategoryRounter from "./category/category.controller.ts";
 import CourseRounter from "./course/course.controller.ts";
 import CartRounter from "./cart/cart.controller.ts";
 import CartDetailRouter from "./cartDetail/cartDetail.controller.ts";
+import TransactionRouter from "./transaction/transaction.controller.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -25,6 +26,7 @@ app.use("/category", CategoryRounter)
 app.use("/course", CourseRounter)
 app.use("/cart", CartRounter)
 app.use("/cart-detail", CartDetailRouter)
+app.use("/transaction", TransactionRouter)
 connectDB();
 
 const server = createServer(app);

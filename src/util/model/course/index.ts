@@ -1,6 +1,6 @@
 export interface Course {
   _id: any;
-  lectureId: number;
+  lectureId: string;
   title: string;
   rating: number;
   description: string;
@@ -13,5 +13,5 @@ export interface Course {
   courseStatus: number;
   totalLesson: number;
   level: number;
-  categoryId: number;
+  categoryId: string;
 }

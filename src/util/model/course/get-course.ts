@@ -12,8 +12,8 @@ export interface GetCourseResponse {
   price: number;
   discountPercent: number;
   thumbnailUrl: string;
-  createAt: string;
-  updateAt: string;
+  createdAt: string;
+  updatedAt: string;
   outcome: string;
   courseStatus: number;
   totalLesson: number;

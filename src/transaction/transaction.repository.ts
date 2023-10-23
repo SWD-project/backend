@@ -1,4 +1,4 @@
-import { TransactionModel } from "./transaction.entity";
+import { TransactionModel } from "./transaction.entity.ts";
 
 export class TransactionRepository {
   public getTransaction = async (id?: string) => {
@@ -9,8 +9,8 @@ export class TransactionRepository {
     }
   };
 
-  public getTransactionByUserId = async (userId: string) => {
-    return await TransactionModel.find({ studentId: userId }).populate(
+  public getTransactionByUserId = async (studentId: string) => {
+    return await TransactionModel.find({studentId}).populate(
       "courseId"
     );
   };
