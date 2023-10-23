@@ -18,6 +18,6 @@ export interface GetCourseResponse {
   courseStatus: number;
   totalLesson: number;
   level: number;
-  categoryId: number;
+  categoryId: string;
   lectureId: User
 }
