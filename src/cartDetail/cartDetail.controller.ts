@@ -36,8 +36,8 @@ CartDetailRouter.use((req, res, next) => {
 .post("/create", async (req, res, next) => {
   try {
     const uuid = getAuthorization(req);
+    console.log(uuid)
     const request: CreateCartDetailRequest = req.body;
-
     await cartDetailService.createCartDetail(uuid, request);
     const response: ResponseBody<CreateCartDetailResponse> = {
       data: [],

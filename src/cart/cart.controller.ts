@@ -9,7 +9,9 @@ import { GetCartResponse } from "../util/model/cart/get-cart.ts";
 
 const CartRounter = Router();
 CartRounter.use(bodyParser.json());
+
 const cartService = new CartService();
+
 CartRounter.use((req, res, next) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
