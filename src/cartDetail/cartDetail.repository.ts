@@ -17,17 +17,10 @@ export class CartDetailRepository {
     return await CartDetailModel.find({ cartId: cartId }).populate("courseId");
   };
 
-  public createCartDetail = async (
-    cartId: string,
-    courseId: string,
-    payment: number,
-    total: number
-  ) => {
+  public createCartDetail = async (cartId: string, courseId: string) => {
     await CartDetailModel.create({
       cartId,
       courseId,
-      payment,
-      total,
     });
   };
 
