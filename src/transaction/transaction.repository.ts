@@ -5,14 +5,12 @@ export class TransactionRepository {
     if (id) {
       return await TransactionModel.findById(id);
     } else {
-      return await TransactionModel.find({ courseStatus: 1 });
+      return await TransactionModel.find();
     }
   };
 
   public getTransactionByUserId = async (studentId: string) => {
-    return await TransactionModel.find({studentId}).populate(
-      "courseId"
-    );
+    return await TransactionModel.find({studentId}).populate("courseId");
   };
 
   public createTransaction = async (

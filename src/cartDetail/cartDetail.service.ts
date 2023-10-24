@@ -31,7 +31,7 @@ export class CartDetailService {
     const cartDetail = await this.cartDetailRepository.getCartDetailByCartIdAndCourseId(cart._id, request.courseId);
     if (cartDetail) throw Error("Course is already in your cart!");
 
-    await this.cartDetailRepository.createCartDetail(cart._id, request.courseId, request.payment,request.total);
+    await this.cartDetailRepository.createCartDetail(cart._id, request.courseId);
   }
 
   public delete = async (id:string) => {
@@ -39,5 +39,9 @@ export class CartDetailService {
     if (!cartDetail) throw Error("Cart detail is not Exist!")
 
     await this.cartDetailRepository.deleteCartDetail(id);
+  }
+
+  public get = async(id : string) => {
+    return (await this.cartDetailRepository.getCartDetail(id)) as unknown as CartDetail;
   }
 }

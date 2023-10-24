@@ -11,6 +11,8 @@ import CourseRounter from "./course/course.controller.ts";
 import CartRounter from "./cart/cart.controller.ts";
 import CartDetailRouter from "./cartDetail/cartDetail.controller.ts";
 import TransactionRouter from "./transaction/transaction.controller.ts";
+import { EnrolledCourseModel } from "./enrolledCourse/enrolledCourse.entity.ts";
+import EnrolledCourseRounter from "./enrolledCourse/enrolledCourse.controller.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -27,6 +29,8 @@ app.use("/course", CourseRounter)
 app.use("/cart", CartRounter)
 app.use("/cart-detail", CartDetailRouter)
 app.use("/transaction", TransactionRouter)
+app.use("/enrolled-course", EnrolledCourseRounter)
+
 connectDB();
 
 const server = createServer(app);
