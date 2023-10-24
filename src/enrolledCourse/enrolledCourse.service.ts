@@ -20,4 +20,12 @@ export class EnrolledCourseService {
     if (enrolledCourse == null) return [];
     return [enrolledCourse];
   }
+  async getAllEnrolledCourseByStudentId(studentId: string) {
+    const enrolledCourseList =
+      await this.enrolledCourseRepository.getEnrolledCourseByStutentId(
+        studentId
+      );
+      console.log(enrolledCourseList)
+    return [enrolledCourseList];
+  }
 }

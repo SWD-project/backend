@@ -8,4 +8,8 @@ export class EnrolledCourseRepository {
       return EnrolledCourseModel.find();
     }
   };
+
+  public getEnrolledCourseByStutentId = (id: string) => {
+    return EnrolledCourseModel.find({ studentId: id }).populate("CourseId").populate("lectureId");
+  };
 }
