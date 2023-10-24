@@ -36,8 +36,6 @@ CartRounter.use((req, res, next) => {
   .post("/create", async (req, res, next) => {
     try {
       const uuid = getAuthorization(req);
-
-
       await cartService.createCart(uuid);
       const response: ResponseBody<CreateCartResponse> = {
         data: [],
