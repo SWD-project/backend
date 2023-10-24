@@ -19,7 +19,7 @@ export class TransactionService {
         const course = await this.courseRepository.getCourse(courseId) as unknown as Course;
         if (!course) throw Error("CourseId is not exist!");
 
-        const total = (course.price * course.discountPercent) / 100;
+        const total = course.price - (course.price * course.discountPercent) / 100;
 
         await this.transactionRepository.createTransaction(id, courseId, payment, total);
     }
