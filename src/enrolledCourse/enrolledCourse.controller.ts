@@ -3,9 +3,9 @@ import { Router } from "express";
 import { EnrolledCourseService } from "./enrolledCourse.service.ts";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { CreateEnrolledCourseRequest, CreateEnrolledCourseResponse } from "../util/model/enrolledCourse/create-enrolled-course.ts";
-import { UserService } from "../user/user.service";
-import { getAuthorization } from "../util/get-authorization";
-import { GetEnrolledCourseResponse } from "../util/model/enrolledCourse/get-enrolled-course";
+import { UserService } from "../user/user.service.ts";
+import { getAuthorization } from "../util/get-authorization.ts";
+import { GetEnrolledCourseResponse } from "../util/model/enrolledCourse/get-enrolled-course.ts";
 
 const EnrolledCourseRounter = Router();
 EnrolledCourseRounter.use(bodyParser.json());
