@@ -10,6 +10,7 @@ import {
 } from "../util/model/user/update-user.ts";
 import { GetUserByIdResponse } from "../util/model/user/get-user.ts";
 import { CreateUserRespone } from "../util/model/user/create-user.ts";
+import { CheckoutRequest, CheckoutResponse } from "../util/model/user/checkout.ts";
 
 const UserRouter = Router();
 UserRouter.use(bodyParser.json());
@@ -92,11 +93,13 @@ UserRouter.use((req, res, next) => {
   
   .post("/checkout", async (req, res, next) => {
     try {
-      //TODO
+      const id = await userService.getUserId(getAuthorization(req));
 
-      const response: ResponseBody<any> = {
+      const request : CheckoutRequest = req.body;
+      await userService.checkout(id, request.cartDetailId, request.payment);
+      const response: ResponseBody<CheckoutResponse> = {
         data: [],
-        message: "Create user success",
+        message: "Checkout success",
         status: "success",
       };
       res.send(response).end;

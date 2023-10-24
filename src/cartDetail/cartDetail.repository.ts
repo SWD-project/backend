@@ -3,7 +3,7 @@ import { CartDetailModel } from "./cartDetail.entity.ts";
 export class CartDetailRepository {
   public getCartDetail = async (id?: string) => {
     if (id) {
-      return await CartDetailModel.findById(id);
+      return await CartDetailModel.findById(id).populate("courseId");
     } else {
       return await CartDetailModel.find();
     }
@@ -17,10 +17,13 @@ export class CartDetailRepository {
     return await CartDetailModel.find({ cartId: cartId }).populate("courseId");
   };
 
-  public createCartDetail = async (cartId: string, courseId: string) => {
+  public createCartDetail = async (
+    cartId: string,
+    courseId: string
+  ) => {
     await CartDetailModel.create({
       cartId,
-      courseId,
+      courseId
     });
   };
 

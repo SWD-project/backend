@@ -1,4 +1,4 @@
-import { EnrolledCourseModel } from "./enrolledCourse.entity";
+import { EnrolledCourseModel } from "./enrolledCourse.entity.ts";
 
 export class EnrolledCourseRepository {
   public getEnrolledCourse = (id?: string) => {
@@ -7,6 +7,18 @@ export class EnrolledCourseRepository {
     } else {
       return EnrolledCourseModel.find();
     }
+  };
+
+  public create = async (studentId: string, courseId: string) => {
+    await EnrolledCourseModel.create({
+      studentId,
+      courseId,
+      totalCompleteLesson: 0,
+    });
+  };
+
+  public getEnrolledCourseByCourseId = async (courseId: string) => {
+    return await EnrolledCourseModel.findOne({ courseId });
   };
 
   public getEnrolledCourseByStutentId = (id: string) => {

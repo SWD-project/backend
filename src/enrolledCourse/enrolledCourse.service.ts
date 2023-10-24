@@ -1,10 +1,13 @@
+import { CourseRepository } from "../course/course.repository.ts";
 import { EnrolledCourse } from "../util/model/enrolledCourse";
-import { EnrolledCourseRepository } from "./enrolledCourse.repository";
+import { EnrolledCourseRepository } from "./enrolledCourse.repository.ts";
 
 export class EnrolledCourseService {
   private enrolledCourseRepository: EnrolledCourseRepository;
+  private courseRepository: CourseRepository;
   constructor() {
     this.enrolledCourseRepository = new EnrolledCourseRepository();
+    this.courseRepository = new CourseRepository();
   }
   async getEnrolledCourseById(id: string) {
     const enrolledCourse =
@@ -19,6 +22,18 @@ export class EnrolledCourseService {
       (await this.enrolledCourseRepository.getEnrolledCourse()) as unknown as EnrolledCourse;
     if (enrolledCourse == null) return [];
     return [enrolledCourse];
+  }
+
+  public create = async(studentId: string,courseId: string) => {
+    
+    const course = this.courseRepository.getCourse(courseId);
+    if (!course) throw Error("CourseId is not Exist!");
+
+    const enrolledCourse = await this.enrolledCourseRepository.getEnrolledCourseByCourseId(courseId);
+    if (enrolledCourse) throw Error("CourseId is existed at Enrolled Course!");
+
+    await this.enrolledCourseRepository.create(studentId, courseId);
+    
   }
   async getAllEnrolledCourseByStudentId(studentId: string) {
     const enrolledCourseList =

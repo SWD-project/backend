@@ -6,6 +6,7 @@ import { TransactionService } from "./transaction.service.ts";
 import { CreateTransactionRequest, CreateTransactionResponse } from "../util/model/transaction/create-transaction.ts";
 import { getAuthorization } from "../util/get-authorization.ts";
 import { GetTransactionResponse } from "../util/model/transaction/get-transaction.ts";
+import { UserService } from "../user/user.service.ts";
 
 
 
@@ -13,6 +14,7 @@ const TransactionRouter = Router();
 TransactionRouter.use(bodyParser.json());
 
 const transactionService = new TransactionService();
+const userService = new UserService();
 
 TransactionRouter.use((req, res, next) => {
   res.statusCode = 200;
@@ -39,8 +41,9 @@ TransactionRouter.use((req, res, next) => {
   .post("/create", async (req, res, next) => {
     try {
         const uuid = getAuthorization(req);
+        const id = await userService.getUserId(uuid);
         const request : CreateTransactionRequest = req.body;
-        await transactionService.create(uuid, request.courseId, request.payment, request.total);
+        await transactionService.create(id, request.courseId, request.payment);
       
       const response: ResponseBody<CreateTransactionResponse> = {
         data: [],
