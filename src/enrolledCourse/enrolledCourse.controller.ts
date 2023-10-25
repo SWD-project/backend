@@ -5,7 +5,7 @@ import { ResponseBody, errorResponse } from "../util/model/index.ts";
 import { CreateEnrolledCourseRequest, CreateEnrolledCourseResponse } from "../util/model/enrolledCourse/create-enrolled-course.ts";
 import { UserService } from "../user/user.service.ts";
 import { getAuthorization } from "../util/get-authorization.ts";
-import { GetEnrolledCourseResponse } from "../util/model/enrolledCourse/get-enrolled-course.ts";
+import { GetEnrolledCourseResponse } from "../util/model/enrolledCourse/get-enrolled-course";
 
 const EnrolledCourseRounter = Router();
 EnrolledCourseRounter.use(bodyParser.json());
