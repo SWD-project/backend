@@ -24,8 +24,9 @@ TransactionRouter.use((req, res, next) => {
   .post("/get", async (req, res, next) => {
     try {
       const uuid = getAuthorization(req);
-      const transactions: any = await transactionService.getAll(uuid);
-      
+
+      const id = await userService.getUserId(uuid); 
+      const transactions: any = await transactionService.getAll(id);
       const response: ResponseBody<GetTransactionResponse> = {
         data: transactions,
         message: "get transactions success",
