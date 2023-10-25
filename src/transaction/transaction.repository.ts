@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+import { EnrolledCourseModel } from "../enrolledCourse/enrolledCourse.entity.ts";
 import { TransactionModel } from "./transaction.entity.ts";
 
 export class TransactionRepository {
@@ -26,4 +28,30 @@ export class TransactionRepository {
         total
     })
   };
+
+  public sumTotal = async(courseId : string) => {
+    const result = await TransactionModel.aggregate([
+      {
+        $match: {
+          courseId: new mongoose.Types.ObjectId(courseId)
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: "$total"
+          }
+        }
+      }
+    ]);
+  
+    if (result.length > 0) {
+      return result[0].total;
+    } else {
+      return 0;
+    }
+  }
+
+  
 }

@@ -1,3 +1,5 @@
+import { Course } from "../util/model/course/index.ts";
+import { UpdateCourseRequest } from "../util/model/course/update-course.ts";
 import { config } from "../util/model/index.ts";
 import { CourseModel } from "./course.entity.ts";
 
@@ -53,4 +55,22 @@ export class CourseRepository {
   public updateRating = async (courseId: string, rating: number) => {
     await CourseModel.updateOne({ _id: courseId }, { $set: { rating } });
   };
+
+  public updateStatus = async (courseId: string, status: number) => {
+    await CourseModel.updateOne({ _id: courseId }, { $set: { status } });
+  };
+
+  public update = async (
+    updateData: UpdateCourseRequest
+  ) => {
+    await CourseModel.updateOne({ _id: updateData._id }, { $set: updateData });
+  };
+
+  public getCourseByLectureId = async(lectureId: string, page: number, pageSize : number) => {
+    const skipCount = (page - 1) * pageSize;
+
+    return await CourseModel.find({ lectureId })
+      .skip(skipCount)
+      .limit(pageSize);
+  }
 }

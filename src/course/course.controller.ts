@@ -16,11 +16,16 @@ import {
   GetCourseResponse,
 } from "../util/model/course/get-course.ts";
 import { UpdateRatingCourseRequest, UpdateRatingCourseResponse } from "../util/model/course/update-rating-course.ts";
+import { ActiveCourseRequest, ActiveCourseResponse } from "../util/model/course/active-course.ts";
+import { UpdateCourseRequest, UpdateCourseResponse } from "../util/model/course/update-course.ts";
+import { UserService } from "../user/user.service.ts";
+import { GetCourseByLectureRequest, GetCourseByLectureResponse } from "../util/model/course/get-course-lecture.ts";
 
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());
 
 const courseService = new CourseService();
+const userService = new UserService();
 
 CourseRounter.use((req, res, next) => {
   res.statusCode = 200;
@@ -92,6 +97,61 @@ CourseRounter.use((req, res, next) => {
       const response: ResponseBody<UpdateRatingCourseResponse> = {
         data: [],
         message: "update rating success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/update", async (req, res, next) => {
+    try {
+      const request: UpdateCourseRequest = req.body;
+      const _ = await courseService.update(request);
+
+      const response: ResponseBody<UpdateCourseResponse> = {
+        data: [],
+        message: "update course success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/active", async (req, res, next) => {
+    try {
+      const request : ActiveCourseRequest = req.body;
+      await courseService.updateStatus(request.courseId);
+
+      const response: ResponseBody<ActiveCourseResponse> = {
+        data: [],
+        message: "update status success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+
+  .post("/get-by-lecture", async (req, res, next) => {
+    try {
+      const lectureId = await userService.getUserId(getAuthorization(req));
+      const request: GetCourseByLectureRequest = req.body;
+      const page = request.page || 1;
+      const limit = request.limit || 5;
+
+      const courses = await courseService.getCourseByLecture (lectureId, page, limit);
+
+      const response: ResponseBody<GetCourseByLectureResponse> = {
+        data: courses,
+        message: "get course success",
         status: "success",
       };
       res.send(response).end();

@@ -29,8 +29,8 @@ export class EnrolledCourseService {
     const course = this.courseRepository.getCourse(courseId);
     if (!course) throw Error("CourseId is not Exist!");
 
-    const enrolledCourse = await this.enrolledCourseRepository.getEnrolledCourseByCourseId(courseId);
-    if (enrolledCourse) throw Error("CourseId is existed at Enrolled Course!");
+    const enrolledCourse = await this.enrolledCourseRepository.getEnrolledCourseByCourseId(studentId, courseId);
+    if (enrolledCourse) throw Error("You enrolled!");
 
     await this.enrolledCourseRepository.create(studentId, courseId);
     

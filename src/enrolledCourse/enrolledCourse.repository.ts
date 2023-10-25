@@ -17,11 +17,15 @@ export class EnrolledCourseRepository {
     });
   };
 
-  public getEnrolledCourseByCourseId = async (courseId: string) => {
-    return await EnrolledCourseModel.findOne({ courseId });
+  public getEnrolledCourseByCourseId = async (studentId: string,courseId: string) => {
+    return await EnrolledCourseModel.findOne({ studentId,courseId });
   };
 
   public getEnrolledCourseByStutentId = (id: string) => {
     return EnrolledCourseModel.find({ studentId: id }).populate("CourseId").populate("lectureId");
   };
+
+  public countEnroll = async (courseId: string) => {
+    return await EnrolledCourseModel.countDocuments({courseId});
+  }
 }
