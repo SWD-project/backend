@@ -41,6 +41,6 @@ export class EnrolledCourseService {
         studentId
       );
       console.log(enrolledCourseList)
-    return [enrolledCourseList];
+    return enrolledCourseList;
   }
 }

@@ -1,7 +1,13 @@
-import { Transaction } from ".";
+import { Course } from "../course";
 
-export interface GetTransactionRequest {
-}
+export interface GetTransactionRequest {}
 
-export interface GetTransactionResponse extends Transaction{
+export interface GetTransactionResponse {
+  _id: any;
+  studentId: string;
+  courseId: Course;
+  payment: number;
+  total: number;
+  createdAt: string;
+  updatedAt: string;
 }
