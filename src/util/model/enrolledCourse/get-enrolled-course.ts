@@ -4,8 +4,8 @@ export interface GetEnrolledCourseRequest {}
 export interface GetEnrolledCourseResponse {
     _id: any;
     studentId: string;
-    coursedId: Course;
+    courseId: Course;
     createdAt: string;
-    updateAt: string;
+    updatedAt: string;
     totalCompleteLesson: number;
 }

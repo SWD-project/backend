@@ -22,7 +22,7 @@ export class EnrolledCourseRepository {
   };
 
   public getEnrolledCourseByStutentId = (id: string) => {
-    return EnrolledCourseModel.find({ studentId: id }).populate("CourseId").populate("lectureId");
+    return EnrolledCourseModel.find({ studentId: id }).populate("courseId");
   };
 
   public countEnroll = async (courseId: string) => {
