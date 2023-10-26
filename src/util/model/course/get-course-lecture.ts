@@ -1,10 +1,10 @@
 export interface GetCourseByLectureRequest {
-  page : number;
-  limit : number;
+  page: number;
+  limit: number;
 }
 
 export interface GetCourseByLectureResponse {
-    _id: any;
+  _id: any;
   title: string;
   rating: number;
   description: string;
@@ -20,5 +20,5 @@ export interface GetCourseByLectureResponse {
   categoryId: string;
   lectureId: string;
   totalEnrolled: number;
-  totalMoney : number;
+  totalMoney: number;
 }
