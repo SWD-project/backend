@@ -1,7 +1,5 @@
 export interface CreateEnrolledCourseRequest {
-    courseId:string;
+  courseId: string;
 }
 
-export interface CreateEnrolledCourseResponse {
-    
-}
+export interface CreateEnrolledCourseResponse {}

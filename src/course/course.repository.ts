@@ -56,8 +56,8 @@ export class CourseRepository {
     await CourseModel.updateOne({ _id: courseId }, { $set: { rating } });
   };
 
-  public updateStatus = async (courseId: string, status: number) => {
-    await CourseModel.updateOne({ _id: courseId }, { $set: { status } });
+  public updateStatus = async (courseId: string, courseStatus: number) => {
+    await CourseModel.updateOne({ _id: courseId }, { $set: { courseStatus } });
   };
 
   public update = async (

@@ -117,9 +117,9 @@ export class CourseService {
     if (!course) throw Error("course id is not exist!");
 
     if (course.courseStatus === 0) {
-      this.courseRepository.updateStatus(courseId, 1);
+      await this.courseRepository.updateStatus(courseId, 1);
     } else {
-      this.courseRepository.updateStatus(courseId, 0);
+      await this.courseRepository.updateStatus(courseId, 0);
     }
   };
 
