@@ -17,8 +17,11 @@ export class EnrolledCourseRepository {
     });
   };
 
-  public getEnrolledCourseByCourseId = async (studentId: string,courseId: string) => {
-    return await EnrolledCourseModel.findOne({ studentId,courseId });
+  public getEnrolledCourseByCourseId = async (
+    studentId: string,
+    courseId: string
+  ) => {
+    return await EnrolledCourseModel.findOne({ studentId, courseId });
   };
 
   public getEnrolledCourseByStutentId = (id: string) => {
@@ -26,6 +29,13 @@ export class EnrolledCourseRepository {
   };
 
   public countEnroll = async (courseId: string) => {
-    return await EnrolledCourseModel.countDocuments({courseId});
-  }
+    return await EnrolledCourseModel.countDocuments({ courseId });
+  };
+
+  public getByStudentIdAndCourseId = async (
+    studentId: string,
+    courseId: string
+  ) => {
+    return await EnrolledCourseModel.findOne({ studentId, courseId });
+  };
 }
