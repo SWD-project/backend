@@ -9,6 +9,7 @@ import {
 import { UserService } from "../user/user.service.ts";
 import { getAuthorization } from "../util/get-authorization.ts";
 import { GetEnrolledCourseResponse } from "../util/model/enrolledCourse/get-enrolled-course";
+import { CheckEnrolledRequest, CheckEnrolledResponse } from "../util/model/enrolledCourse/check-enrolled.ts";
 
 const EnrolledCourseRounter = Router();
 EnrolledCourseRounter.use(bodyParser.json());
@@ -57,6 +58,26 @@ EnrolledCourseRounter.use((req, res, next) => {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  });
+  })
+  .post("/get-by-course", async (req, res, next) => {
+    try {
+      const uuid = getAuthorization(req);
+      const userId = await userService.getUserId(uuid);
+      const request: CheckEnrolledRequest = req.body;
+
+      const enrolledCourse = await enrolledCourseService.getByStudentIdAndCourseId(userId, request.courseId);
+
+      const response: ResponseBody<CheckEnrolledResponse> = {
+        data: enrolledCourse,
+        message: "get enrolled course success",
+        status: "success",
+      };
+      res.send(response).end();
+    } catch (error: any) {
+      res.statusCode = 400;
+      res.send(errorResponse(error.message)).end();
+    }
+  })
+  ;
 
 export default EnrolledCourseRounter;

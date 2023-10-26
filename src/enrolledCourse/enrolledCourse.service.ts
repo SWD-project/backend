@@ -24,23 +24,34 @@ export class EnrolledCourseService {
     return [enrolledCourse];
   }
 
-  public create = async(studentId: string,courseId: string) => {
-    
+  public create = async (studentId: string, courseId: string) => {
     const course = this.courseRepository.getCourse(courseId);
     if (!course) throw Error("CourseId is not Exist!");
 
-    const enrolledCourse = await this.enrolledCourseRepository.getEnrolledCourseByCourseId(studentId, courseId);
+    const enrolledCourse =
+      await this.enrolledCourseRepository.getEnrolledCourseByCourseId(
+        studentId,
+        courseId
+      );
     if (enrolledCourse) throw Error("You enrolled!");
 
     await this.enrolledCourseRepository.create(studentId, courseId);
-    
-  }
+  };
   async getAllEnrolledCourseByStudentId(studentId: string) {
     const enrolledCourseList =
       await this.enrolledCourseRepository.getEnrolledCourseByStutentId(
         studentId
       );
-      console.log(enrolledCourseList)
+    console.log(enrolledCourseList);
     return enrolledCourseList;
   }
+
+  public getByStudentIdAndCourseId = async (
+    studentId: string,
+    courseId: string
+  ) => {
+    const enrolledCourse = await this.enrolledCourseRepository.getByStudentIdAndCourseId(studentId, courseId) as unknown as EnrolledCourse;
+    if (!enrolledCourse) return [];
+    return [enrolledCourse];
+  };
 }
