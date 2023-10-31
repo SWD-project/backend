@@ -56,12 +56,8 @@ CourseRounter.use((req, res, next) => {
   .post("/search", async (req, res, next) => {
     try {
       const request: SearchCourseRequest = req.body;
-      const title = request.title;
-      const page = request.page || 1;
-      const pageSize = request.limit || 5;
-
-      const courses = await courseService.search(title, page, pageSize);
-
+      const courses = await courseService.search(request);
+      
       const response: ResponseBody<SearchCourseResponse> = {
         data: courses,
         message: "Search success",
