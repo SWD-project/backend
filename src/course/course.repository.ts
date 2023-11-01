@@ -60,17 +60,57 @@ export class CourseRepository {
     await CourseModel.updateOne({ _id: courseId }, { $set: { courseStatus } });
   };
 
-  public update = async (
-    updateData: UpdateCourseRequest
-  ) => {
+  public update = async (updateData: UpdateCourseRequest) => {
     await CourseModel.updateOne({ _id: updateData._id }, { $set: updateData });
   };
 
-  public getCourseByLectureId = async(lectureId: string, page: number, pageSize : number) => {
+  public getCourseByLectureId = async (
+    lectureId: string,
+    page: number,
+    pageSize: number
+  ) => {
     const skipCount = (page - 1) * pageSize;
 
     return await CourseModel.find({ lectureId })
       .skip(skipCount)
       .limit(pageSize);
-  }
+  };
+
+  public search = async (
+    title: string,
+    categories: string[],
+    levels: number[],
+    page: number,
+    pageSize: number
+  ) => {
+    const query: any = {};
+
+    if (title) {
+      // Add a case-insensitive title search
+      query.title = { $regex: new RegExp(title, "i") };
+    }
+
+    if (categories && categories.length > 0) {
+      // Match documents with any of the specified categories
+      query.categoryId = { $in: categories };
+    }
+
+    if (levels && levels.length > 0) {
+      // Match documents with any of the specified levels
+      query.level = { $in: levels };
+    }
+
+    try {
+      const count = await CourseModel.countDocuments(query);
+
+      const courses = await CourseModel.find(query)
+        .skip((page - 1) * pageSize)
+        .limit(pageSize);
+
+      return { count, courses };
+    } catch (error) {
+      // Handle any errors here
+      throw error;
+    }
+  };
 }

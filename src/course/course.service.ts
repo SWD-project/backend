@@ -77,28 +77,20 @@ export class CourseService {
     return await this.courseRepository.countCourse(categoryId);
   }
 
-  public search = async (title: string, page: number, pageSize: number) => {
-    const courses =
-      (await this.courseRepository.getCourse()) as unknown as Course[];
+  public search = async (request : SearchCourseRequest) => {
+    const title = request.title;
+    const categories= request.categories;
+    const levels = request.levels;
+    const page = request.page || 1;
+    const pageSize = request.limit || 5;
 
-    if (!courses) return [];
-
-    const filteredCourses = courses.filter((course) =>
-      course.title.toLowerCase().includes(title.toLowerCase())
-    );
-
-    if (filteredCourses.length == 0) console.log("fail " + title);
-    if (filteredCourses.length == 0) return [];
-
-    const startIndex = (page - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-
-    const coursesForPage = filteredCourses.slice(startIndex, endIndex);
-    console.log(coursesForPage[0]._id);
+    const result = await this.courseRepository.search(title, categories, levels, page, pageSize);
+    const _courses = result.courses as unknown as Course[];
+    if (!_courses) return [];
 
     const response: SearchCourseResponse = {
-      courses: coursesForPage,
-      total: filteredCourses.length,
+      courses: _courses,
+      total: result.count,
     };
 
     return [response];
