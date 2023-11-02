@@ -7,7 +7,7 @@ export interface CreateCourseRequest {
   discountPercent: number;
   thumbnailUrl: string;
   outcome: string;
-  level: 0 | 1 | 2;
+  level: number;
   categoryId: string;
 }
 export interface CreateCourseRespone extends Course {}

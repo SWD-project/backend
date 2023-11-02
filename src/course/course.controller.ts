@@ -57,7 +57,6 @@ CourseRounter.use((req, res, next) => {
     try {
       const request: SearchCourseRequest = req.body;
       const courses = await courseService.search(request);
-      
       const response: ResponseBody<SearchCourseResponse> = {
         data: courses,
         message: "Search success",
