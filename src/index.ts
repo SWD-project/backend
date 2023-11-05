@@ -13,6 +13,7 @@ import CartDetailRouter from "./cartDetail/cartDetail.controller.ts";
 import TransactionRouter from "./transaction/transaction.controller.ts";
 import { EnrolledCourseModel } from "./enrolledCourse/enrolledCourse.entity.ts";
 import EnrolledCourseRounter from "./enrolledCourse/enrolledCourse.controller.ts";
+import CourseLessonRounter from "./courseLesson/courseLesson.controller.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -23,13 +24,14 @@ app.use(morgan("dev"));
 console.log(__dirname);
 app.use(express.static(__dirname + "/public"));
 
+app.use("/course-lesson", CourseLessonRounter);
 app.use("/user", UserRouter);
-app.use("/category", CategoryRounter)
-app.use("/course", CourseRounter)
-app.use("/cart", CartRounter)
-app.use("/cart-detail", CartDetailRouter)
-app.use("/transaction", TransactionRouter)
-app.use("/enrolled-course", EnrolledCourseRounter)
+app.use("/category", CategoryRounter);
+app.use("/course", CourseRounter);
+app.use("/cart", CartRounter);
+app.use("/cart-detail", CartDetailRouter);
+app.use("/transaction", TransactionRouter);
+app.use("/enrolled-course", EnrolledCourseRounter);
 
 connectDB();
 

@@ -6,7 +6,7 @@ export class CourseSectionService {
   constructor() {
     this.courseSectionRepository = new CourseSectionRepository();
   }
-  async getCourseById(id: string) {
+  async getCourseSectionById(id: string) {
     const courseSection = (await this.courseSectionRepository.getCourseSection(
       id
     )) as unknown as CourseSection;

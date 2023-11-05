@@ -8,4 +8,11 @@ export class CourseSectionRepository {
       return CourseSectionModel.find();
     }
   };
+  // public getSection = async (id: string) => {
+  //   try {
+  //     return await CourseSectionModel.findOne({});
+  //   } catch (error: any) {
+  //     throw new Error("Lỗi khi tìm section: " + error.message);
+  //   }
+  // };
 }
