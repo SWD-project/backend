@@ -1,4 +1,4 @@
-import { CourseSectionModel } from "./courseSection.entity";
+import { CourseSectionModel } from "./courseSection.entity.ts";
 
 export class CourseSectionRepository {
   public getCourseSection = (id?: string) => {

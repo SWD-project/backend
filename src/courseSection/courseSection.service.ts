@@ -1,5 +1,5 @@
 import { CourseSection } from "../util/model/courseSection";
-import { CourseSectionRepository } from "./courseSection.repository";
+import { CourseSectionRepository } from "./courseSection.repository.ts";
 
 export class CourseSectionService {
   private courseSectionRepository: CourseSectionRepository;
