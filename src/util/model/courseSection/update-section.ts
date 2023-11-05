@@ -7,11 +7,11 @@ export interface UpdateCourseSection {
 }
 
 export interface UpdateCourseSectionRequest {
-  _id:any;
-  courseId: string;
+  _id: any;
   timeComplete: number;
+  courseId: string;
   title: string;
   description: string;
 }
 
-export interface UpdateCourseSectionRespone extends CourseSection {}
+export interface UpdateCourseSectionRespone {}

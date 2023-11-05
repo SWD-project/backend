@@ -19,7 +19,7 @@ export class CourseSectionService {
   }
 
   public create = async (
-    timeComplete: string,
+    timeComplete: number,
     courseId: string,
     title: string,
     description: string
@@ -41,8 +41,6 @@ export class CourseSectionService {
     return sections;
   };
   public update = async (request: UpdateCourseSectionRequest) => {
-    const check = await this.courseRepository.getCourse(request._id);
-    if (!check) throw Error("course id is not exist!");
-    const section = await this.courseSectionRepository.update(request);
+    const updateSection = await this.courseSectionRepository.update(request);
   };
 }

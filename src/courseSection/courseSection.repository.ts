@@ -11,7 +11,7 @@ export class CourseSectionRepository {
     }
   };
   public createSection = async (
-    timeComplete: string,
+    timeComplete: number,
     courseId: string,
     title: string,
     description: string
@@ -27,6 +27,6 @@ export class CourseSectionRepository {
     return await CourseSectionModel.find({ courseId });
   };
   public update = async (data: UpdateCourseSectionRequest) => {
-    await CourseSectionModel.updateOne({ _id: data._id }, { $set: { data } });
+    await CourseSectionModel.updateOne({ _id: data._id }, { $set: data });
   };
 }

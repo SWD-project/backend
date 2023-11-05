@@ -1,7 +1,7 @@
 import { CourseSection } from ".";
 
 export interface CreateCourseSectionRequest {
-  timeComplete: string;
+  timeComplete: number;
   courseId: string;
   title: string;
   description: string;

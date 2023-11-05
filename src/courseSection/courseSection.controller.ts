@@ -17,11 +17,13 @@ import {
   GetCourseSectionResponr,
 } from "../util/model/courseSection/get-course-section";
 import { ResponseBody, errorResponse } from "../util/model/index.ts";
+import { CourseLessonRepository } from "../courseLesson/courseLesson.repository.ts";
 
 const CourseSectionRounter = Router();
 CourseSectionRounter.use(bodyParser.json());
 const courseSectionService = new CourseSectionService();
 const courseService = new CourseService();
+const courseSectionRepository = new CourseLessonRepository();
 CourseSectionRounter.use((req, res, next) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
@@ -48,10 +50,10 @@ CourseSectionRounter.use((req, res, next) => {
       res.send(errorResponse(error.message)).end();
     }
   })
-  .post("/update-section", async (req, res, next) => {
+  .post("/update", async (req, res, next) => {
     try {
       const request: UpdateCourseSectionRequest = req.body;
-      const updateSection = await courseSectionService.update(request);
+      const update = await courseSectionService.update(request);
       const response: ResponseBody<UpdateCourseSectionRespone> = {
         data: [],
         message: "update section success",
@@ -63,6 +65,7 @@ CourseSectionRounter.use((req, res, next) => {
       res.send(errorResponse(error.message)).end();
     }
   })
+
   .post("/get-by-course", async (req, res, next) => {
     try {
       const request: GetCourseSectionRequest = req.body;

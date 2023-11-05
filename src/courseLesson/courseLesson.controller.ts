@@ -62,14 +62,14 @@ CourseLessonRounter.use((req, res, next) => {
       res.send(errorResponse(error.message)).end();
     }
   })
-  .post("/update-course-lesson", async (req, res, next) => {
+  .post("/update", async (req, res, next) => {
     try {
       const request: UpdateCourseLessonRequest = req.body;
-      const updateLesson =
-        await courseLessonService.updateCourseLesson(request);
+      const _ = await courseLessonService.updateCourseLesson(request);
+
       const response: ResponseBody<UpdateCourseLessonRespone> = {
         data: [],
-        message: "update lesson success",
+        message: "update course lesson success",
         status: "success",
       };
       res.send(response).end();
@@ -78,6 +78,7 @@ CourseLessonRounter.use((req, res, next) => {
       res.send(errorResponse(error.message)).end();
     }
   })
+
   .post("/get-by-section", async (req, res, next) => {
     try {
       const request: GetCourseLessonBySectionRequest = req.body;

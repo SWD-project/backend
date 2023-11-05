@@ -6,7 +6,7 @@ const completeCourseSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    course: {
+    courseId: {
       type: Schema.Types.ObjectId,
       ref: "Course",
     },
