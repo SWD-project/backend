@@ -6,5 +6,3 @@ export interface UpdateCourseLessonRequest {
   duration: number;
   index: number;
 }
-
-export interface UpdateCourseLessonRespone {}

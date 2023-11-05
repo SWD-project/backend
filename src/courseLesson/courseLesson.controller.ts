@@ -34,6 +34,7 @@ CourseLessonRounter.use((req, res, next) => {
         message: "Get all success",
         status: "success",
       };
+      res.send(response).end();
     } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
@@ -55,6 +56,7 @@ CourseLessonRounter.use((req, res, next) => {
         message: "Tạo lesson thành công",
         status: "success",
       };
+      res.send(respone).end();
     } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
@@ -63,13 +65,8 @@ CourseLessonRounter.use((req, res, next) => {
   .post("/update-course-lesson", async (req, res, next) => {
     try {
       const request: UpdateCourseLessonRequest = req.body;
-      const updateLesson = await courseLessonService.updateCourseLesson(
-        request.courseSectionId,
-        request.description,
-        request.title,
-        request.duration,
-        request.index
-      );
+      const updateLesson =
+        await courseLessonService.updateCourseLesson(request);
       const response: ResponseBody<UpdateCourseLessonRespone> = {
         data: [],
         message: "update lesson success",
@@ -92,6 +89,7 @@ CourseLessonRounter.use((req, res, next) => {
         message: "get all lesson success",
         status: "success",
       };
+      res.send(respone).end();
     } catch (error: any) {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();

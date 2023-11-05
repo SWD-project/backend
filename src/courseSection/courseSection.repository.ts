@@ -1,3 +1,5 @@
+import { CreateCourseSectionRequest } from "../util/model/courseSection/create-section.ts";
+import { UpdateCourseSectionRequest } from "../util/model/courseSection/update-section.ts";
 import { CourseSectionModel } from "./courseSection.entity.ts";
 
 export class CourseSectionRepository {
@@ -8,11 +10,23 @@ export class CourseSectionRepository {
       return CourseSectionModel.find();
     }
   };
-  // public getSection = async (id: string) => {
-  //   try {
-  //     return await CourseSectionModel.findOne({});
-  //   } catch (error: any) {
-  //     throw new Error("Lỗi khi tìm section: " + error.message);
-  //   }
-  // };
+  public createSection = async (
+    timeComplete: string,
+    courseId: string,
+    title: string,
+    description: string
+  ) => {
+    await CourseSectionModel.create({
+      timeComplete,
+      courseId,
+      title,
+      description,
+    });
+  };
+  public getSectionByCourseId = async (courseId: string) => {
+    return await CourseSectionModel.find({ courseId });
+  };
+  public update = async (data: UpdateCourseSectionRequest) => {
+    await CourseSectionModel.updateOne({ _id: data._id }, { $set: { data } });
+  };
 }

@@ -2,6 +2,7 @@ import { CourseSectionRepository } from "../courseSection/courseSection.reposito
 import { CourseLesson } from "../util/model/courseLesson";
 
 import { GetCourseLessonBySectionRespone } from "../util/model/courseLesson/get-course-lesson.ts";
+import { UpdateCourseLessonRequest } from "../util/model/courseLesson/update-lesson.ts";
 import { CourseSection } from "../util/model/courseSection";
 import { CourseLessonRepository } from "./courseLesson.repository.ts";
 
@@ -49,20 +50,10 @@ export class CourseLessonService {
       throw new Error("Lỗi khi tạo lesson: " + error.message);
     }
   };
-  public updateCourseLesson = async (
-    courseSectionId: string,
-    description: string,
-    title: string,
-    duration: number,
-    index: number
-  ) => {
-    await this.courseLessonRepository.updateCourseLesson(
-      courseSectionId,
-      description,
-      title,
-      duration,
-      index
-    );
+  public updateCourseLesson = async (data: UpdateCourseLessonRequest) => {
+    const lesson = await this.courseLessonRepository.getCourseLesson(data._id);
+    if (!lesson) throw Error("lesson is not exist!");
+    await this.courseLessonRepository.updateCourseLesson(data);
   };
 
   public getLessonBySectionId = async (sectionId: string) => {

@@ -31,17 +31,8 @@ export class CourseLessonRepository {
       throw new Error("Lỗi khi tạo bài học: " + error.message);
     }
   };
-  public updateCourseLesson = async (
-    courseSectionId: string,
-    description: string,
-    title: string,
-    duration: number,
-    index: number
-  ) => {
-    await courseLessonModel.updateOne(
-      { _id: courseSectionId },
-      { $set: { description, title, duration, index } }
-    );
+  public updateCourseLesson = async (data: UpdateCourseLessonRequest) => {
+    await courseLessonModel.updateOne({ _id: data._id }, { $set: { data } });
   };
 
   public getCourseLessonByCourseSectionId = async (courseSectionId: string) => {
