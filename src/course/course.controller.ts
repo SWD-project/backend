@@ -105,7 +105,7 @@ CourseRounter.use((req, res, next) => {
   .post("/update", async (req, res, next) => {
     try {
       const request: UpdateCourseRequest = req.body;
-      const _ = await courseService.update(request);
+      const data = await courseService.update(request);
 
       const response: ResponseBody<UpdateCourseResponse> = {
         data: [],
