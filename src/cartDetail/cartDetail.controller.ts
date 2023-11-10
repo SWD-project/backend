@@ -6,6 +6,7 @@ import { CartDetail } from "../util/model/cartDetail";
 import { CreateCartDetailRequest, CreateCartDetailResponse } from "../util/model/cartDetail/create-cart-detail.ts";
 import { getAuthorization } from "../util/get-authorization.ts";
 import { DeleteCartDetailRequest, DeleteCartDetailResponse } from "../util/model/cartDetail/delete-cart-detail.ts";
+import { GetCartDetailByCourseIdRequest, GetCartDetailByCourseIdResponse } from "../util/model/cartDetail/get-cart-detail-by-course-id.ts";
 
 const CartDetailRouter = Router();
 CartDetailRouter.use(bodyParser.json());
@@ -60,6 +61,24 @@ CartDetailRouter.use((req, res, next) => {
     const response: ResponseBody<DeleteCartDetailResponse> = {
       data: [],
       message: "delete cart detail success",
+      status: "success",
+    };
+    res.send(response).end();
+  } catch (error: any) {
+    res.statusCode = 400;
+    res.send(errorResponse(error.message)).end();
+  }
+})
+
+.post("/get-by-course-id", async (req, res, next) => {
+  try {
+    const uuid = getAuthorization(req);
+    const request: GetCartDetailByCourseIdRequest = req.body;
+
+    const cartDetail = await cartDetailService.getCartDetailByCourseId(uuid, request.courseId);
+    const response: ResponseBody<GetCartDetailByCourseIdResponse> = {
+      data: cartDetail,
+      message: "This course is already in your cart",
       status: "success",
     };
     res.send(response).end();

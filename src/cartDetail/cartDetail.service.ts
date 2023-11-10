@@ -46,4 +46,19 @@ export class CartDetailService {
   public get = async(id : string) => {
     return (await this.cartDetailRepository.getCartDetail(id)) as unknown as CartDetail;
   }
-}
+
+  public getCartDetailByCourseId = async(uuid:string, courseId: string) => {
+    const cart = await this.cartService.getCart(uuid);
+    if (!cart) throw Error("Cart is not existed!");
+
+    const cartDetail =
+      await this.cartDetailRepository.getCartDetailByCartIdAndCourseId(
+        cart._id,
+        courseId
+      ) as unknown as CartDetail;
+
+      if (!cartDetail) return [];
+
+      return [cartDetail];
+  }
+ }
