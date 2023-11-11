@@ -16,6 +16,7 @@ import EnrolledCourseRounter from "./enrolledCourse/enrolledCourse.controller.ts
 import CourseLessonRounter from "./courseLesson/courseLesson.controller.ts";
 import CourseSectionRounter from "./courseSection/courseSection.controller.ts";
 import CompleteCourseRouter from "./completeCourse/completeCourse.controller.ts";
+import RoleRounter from "./role/role.controller.ts";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 // const hostname = "localhost"
@@ -25,6 +26,7 @@ app.use(morgan("dev"));
 console.log(__dirname);
 app.use(express.static(__dirname + "/public"));
 
+app.use("/role", RoleRounter);
 app.use("/complete-course", CompleteCourseRouter);
 app.use("/course-section", CourseSectionRounter);
 app.use("/course-lesson", CourseLessonRounter);
