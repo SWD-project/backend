@@ -13,7 +13,10 @@ import CartDetailRouter from "./cartDetail/cartDetail.controller.ts";
 import TransactionRouter from "./transaction/transaction.controller.ts";
 import { EnrolledCourseModel } from "./enrolledCourse/enrolledCourse.entity.ts";
 import EnrolledCourseRounter from "./enrolledCourse/enrolledCourse.controller.ts";
-
+import CourseLessonRounter from "./courseLesson/courseLesson.controller.ts";
+import CourseSectionRounter from "./courseSection/courseSection.controller.ts";
+import CompleteCourseRouter from "./completeCourse/completeCourse.controller.ts";
+import RoleRounter from "./role/role.controller.ts";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 // const hostname = "localhost"
@@ -23,13 +26,17 @@ app.use(morgan("dev"));
 console.log(__dirname);
 app.use(express.static(__dirname + "/public"));
 
+app.use("/role", RoleRounter);
+app.use("/complete-course", CompleteCourseRouter);
+app.use("/course-section", CourseSectionRounter);
+app.use("/course-lesson", CourseLessonRounter);
 app.use("/user", UserRouter);
-app.use("/category", CategoryRounter)
-app.use("/course", CourseRounter)
-app.use("/cart", CartRounter)
-app.use("/cart-detail", CartDetailRouter)
-app.use("/transaction", TransactionRouter)
-app.use("/enrolled-course", EnrolledCourseRounter)
+app.use("/category", CategoryRounter);
+app.use("/course", CourseRounter);
+app.use("/cart", CartRounter);
+app.use("/cart-detail", CartDetailRouter);
+app.use("/transaction", TransactionRouter);
+app.use("/enrolled-course", EnrolledCourseRounter);
 
 connectDB();
 

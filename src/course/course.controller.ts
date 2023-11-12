@@ -15,11 +15,23 @@ import {
   GetCourseRequest,
   GetCourseResponse,
 } from "../util/model/course/get-course.ts";
-import { UpdateRatingCourseRequest, UpdateRatingCourseResponse } from "../util/model/course/update-rating-course.ts";
-import { ActiveCourseRequest, ActiveCourseResponse } from "../util/model/course/active-course.ts";
-import { UpdateCourseRequest, UpdateCourseResponse } from "../util/model/course/update-course.ts";
+import {
+  UpdateRatingCourseRequest,
+  UpdateRatingCourseResponse,
+} from "../util/model/course/update-rating-course.ts";
+import {
+  ActiveCourseRequest,
+  ActiveCourseResponse,
+} from "../util/model/course/active-course.ts";
+import {
+  UpdateCourseRequest,
+  UpdateCourseResponse,
+} from "../util/model/course/update-course.ts";
 import { UserService } from "../user/user.service.ts";
-import { GetCourseByLectureRequest, GetCourseByLectureResponse } from "../util/model/course/get-course-lecture.ts";
+import {
+  GetCourseByLectureRequest,
+  GetCourseByLectureResponse,
+} from "../util/model/course/get-course-lecture.ts";
 
 const CourseRounter = Router();
 CourseRounter.use(bodyParser.json());
@@ -56,7 +68,7 @@ CourseRounter.use((req, res, next) => {
   .post("/search", async (req, res, next) => {
     try {
       const request: SearchCourseRequest = req.body;
-      console.log(request)
+      console.log(request);
       const courses = await courseService.search(request);
       const response: ResponseBody<SearchCourseResponse> = {
         data: courses,
@@ -89,7 +101,11 @@ CourseRounter.use((req, res, next) => {
   .post("/update-rating", async (req, res, next) => {
     try {
       const request: UpdateRatingCourseRequest = req.body;
-      const _ = await courseService.updateRating(request.courseId, request.rating);
+      const _ = await courseService.updateRating(
+        request.courseId,
+        request.rating
+      );
+      console.log(_);
       const response: ResponseBody<UpdateRatingCourseResponse> = {
         data: [],
         message: "update rating success",
@@ -121,7 +137,7 @@ CourseRounter.use((req, res, next) => {
 
   .post("/active", async (req, res, next) => {
     try {
-      const request : ActiveCourseRequest = req.body;
+      const request: ActiveCourseRequest = req.body;
       await courseService.updateStatus(request.courseId);
 
       const response: ResponseBody<ActiveCourseResponse> = {
@@ -143,7 +159,11 @@ CourseRounter.use((req, res, next) => {
       const page = request.page || 1;
       const limit = request.limit || 5;
 
-      const courses = await courseService.getCourseByLecture (lectureId, page, limit);
+      const courses = await courseService.getCourseByLecture(
+        lectureId,
+        page,
+        limit
+      );
 
       const response: ResponseBody<GetCourseByLectureResponse> = {
         data: courses,
@@ -155,6 +175,5 @@ CourseRounter.use((req, res, next) => {
       res.statusCode = 400;
       res.send(errorResponse(error.message)).end();
     }
-  })
-  ;
+  });
 export default CourseRounter;
