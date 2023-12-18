@@ -21,7 +21,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 // const hostname = "localhost"
 app.use(cors());
-
 app.use(morgan("dev"));
 console.log(__dirname);
 app.use(express.static(__dirname + "/public"));
